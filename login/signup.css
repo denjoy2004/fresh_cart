@@ -43,7 +43,7 @@ header {
   top: 16%;
   left: 45%;
 }
-.personal_details{
+.personal_details,.seller_details{
     width:300px;
     height: auto;
     border-radius: 15px;
