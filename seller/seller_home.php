@@ -1,9 +1,9 @@
 <?php
-session_start();
+session_start(); // Start the session
 
-// Check if seller is logged in
-if (!isset($_SESSION['seller_id'])) {
-    header("Location: seller_login.php");
+// Check if the user is logged in
+if (!isset($_SESSION['seller_username'])) {
+    header("Location: seller_login.php"); // Redirect to login page if not logged in
     exit();
 }
 ?>
@@ -14,7 +14,7 @@ if (!isset($_SESSION['seller_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seller Dashboard - Fresh Cart</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
     <div class="container">

@@ -36,12 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
         
-        // Verify the password
-        if (password_verify($password, $row['password'])) {
+        // Check the password directly (no hashing)
+        if ($password === $row['seller_password']) {
             // Store seller info in session and redirect to seller home
-            $_SESSION['seller_id'] = $row['id'];
-            $_SESSION['seller_name'] = $row['name'];
-            header("Location: /seller/seller_home.php");
+            $_SESSION['seller_username'] = $row['seller_username'];
+            header("Location: seller_home.php");
             exit();
         } else {
             $error_message = "Invalid password.";
@@ -61,8 +60,8 @@ mysqli_close($conn);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fresh Cart - Seller Login</title>
-    <link rel="stylesheet" href="login.css">
-    <script src="/login/login.js"></script>
+    <link rel="stylesheet" href="../login/login.css">
+    <script src="../login/login.js"></script>
 </head>
 <body>
     <div class="container">    

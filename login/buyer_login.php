@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $row = mysqli_fetch_assoc($result);
             
             // Verify the password
-            if (!empty($row['password']) && password_verify($password, $row['password'])) {
+            if (!empty($row['password']) && $row['password'] === $password) {
                 // Store user info in session and redirect to buyer home
                 $_SESSION['buyer_id'] = $row['id'];
                 $_SESSION['buyer_name'] = $row['name'];
@@ -69,6 +69,8 @@ mysqli_close($conn);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fresh Cart - Buyer Login</title>
     <link rel="stylesheet" href="login.css">
+    <script src="/login/login.js"></script>
+
 </head>
 <body>
     <div class="container">    

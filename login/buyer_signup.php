@@ -1,77 +1,8 @@
-<?php
-// Display errors for debugging
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
-// Database connection
-$server = "localhost";
-$user = "root";
-$pass = "";
-$db = "fresh_cart";
-
-$conn = mysqli_connect($server, $user, $pass, $db);
-
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
-// Process the form submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Retrieve and sanitize user input
-    $name = mysqli_real_escape_string($conn, $_POST['buyer_name']);
-    $mobile_no = mysqli_real_escape_string($conn, $_POST['buyer_mbno']);
-    $username = mysqli_real_escape_string($conn, $_POST['buyer_username']);
-    $password = mysqli_real_escape_string($conn, $_POST['buyer_password']);
-    $confirm_password = mysqli_real_escape_string($conn, $_POST['buyer_password_confirm']);
-    $house_name = mysqli_real_escape_string($conn, $_POST['buyer_house_name']);
-    $area = mysqli_real_escape_string($conn, $_POST['buyer_area']);
-    $city = mysqli_real_escape_string($conn, $_POST['buyer_city']);
-    $state = mysqli_real_escape_string($conn, $_POST['buyer_state']);
-    $pincode = mysqli_real_escape_string($conn, $_POST['buyer_pincode']);
-
-    // Validate that passwords match
-    if ($password !== $confirm_password) {
-        $error_message = "Passwords do not match!";
-    } else {
-        // Hash the password
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-        // Check if the user already exists
-        $sql_check = "SELECT * FROM buyer_table WHERE buyer_username = ?";
-        $stmt = mysqli_prepare($conn, $sql_check);
-        mysqli_stmt_bind_param($stmt, 's', $username);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-
-        if (mysqli_num_rows($result) > 0) {
-            $error_message = "Email already registered.";
-        } else {
-            // Insert new user data into the database using prepared statements
-            $sql_insert = "INSERT INTO buyer_table (buyer_name, buyer_mbno, buyer_username, buyer_password, buyer_house_name, buyer_area, buyer_city, buyer_state, buyer_pincode)
-                           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            $stmt_insert = mysqli_prepare($conn, $sql_insert);
-            mysqli_stmt_bind_param($stmt_insert, 'sssssssss', $name, $mobile_no, $username, $hashed_password, $house_name, $area, $city, $state, $pincode);
-
-            if (mysqli_stmt_execute($stmt_insert)) {
-                // Redirect on successful signup
-                header("Location: /buyer/buyer_home.php");
-                exit();
-            } else {
-                $error_message = "Error: " . mysqli_error($conn);
-            }
-        }
-    }
-}
-
-// Close the connection
-mysqli_close($conn);
-?>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<h>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fresh Cart - Buyer Sign Up</title>
@@ -84,20 +15,7 @@ mysqli_close($conn);
             margin-right: 120px;
         }
     </style>
-    <script>
-        function validate_signup() {
-            const password = document.getElementById("user_password").value;
-            const confirmPassword = document.getElementById("user_password_confirm").value;
-
-            // Check if passwords match
-            if (password !== confirmPassword) {
-                alert("Passwords do not match!");
-                return false; // Prevent form submission
-            }
-
-            return true; // Allow form submission
-        }
-    </script>
+    <script src="/login/login.js"></script>
 </head>
 <body>
     <div class="container">    
