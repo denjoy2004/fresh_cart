@@ -1,0 +1,237 @@
+header {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center; /* Center items vertically */
+    background-color: rgb(46, 44, 44); /* Set background to black */
+    padding: 10px; /* Add padding for spacing */
+}
+
+.logo {
+    width: auto; /* Adjust width if needed */
+    height: auto;
+    padding: 10px; /* Add padding for spacing */
+}
+
+.menu {
+    width: 100%;
+    text-align: center; /* Center align the menu */
+}
+
+nav ul {
+    padding: 0;
+    list-style: none;
+    display: inline-block; /* Center the menu items */
+}
+
+nav ul li {
+    display: inline; /* Ensure the menu items are inline */
+    margin: 0 15px; /* Add space between menu items */
+}
+
+nav ul li a {
+    color: white; /* Change link color to white for better contrast */
+    padding: 10px 15px;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    background: #c8c8c8; /* Change background color on hover */
+    color: rgb(83, 81, 81); /* Change text color on hover */
+}
+
+
+nav ul li a:hover {
+    background: #c8c8c8;
+}
+
+.welcome {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    padding: 20px;
+    background-color: #474e5d;
+    color: white;
+}
+
+.dashboard {
+    padding: 20px;
+    background-color: #f0f0f0;
+    text-align: center;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto; /* Center the grid */
+}
+
+.dashboard-item {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+
+.orders {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.orders-table th, .orders-table td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.orders-table th {
+    background-color: #474e5d;
+    color: white;
+}
+.orders h3{
+    text-align: center;
+}
+.orders-table td {
+    background-color: #ffffff;
+}
+
+.orders-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.products {
+    padding: 30px;
+}
+
+.products h3 {
+    text-align: center;
+}
+
+.image-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px; /* Adjust the spacing between images */
+}
+
+.image-item img {
+    width: 150px; /* Set the width you want */
+    height: 150px; /* Set the height you want */
+    object-fit: cover; /* This will maintain the aspect ratio and cover the area */
+    border-radius: 5px; /* Optional: add some border radius */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: add shadow for depth */
+}
+
+.image-item {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+.add-product-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #4b5577;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-product-btn:hover {
+    background-color: #3b4a66;
+}
+
+.orders {
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.orders-table th, .orders-table td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.about{
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    text-align: center;
+    background-color: #474e5d;
+    color: white;
+  }
+  .contact-info {
+    width: 100%;
+    padding: 10px;
+    height: auto;
+    text-align: center;
+    padding-bottom: 10px;
+    background-color: #a39f9f;
+}
+.contact-info h2 {
+    margin: 10px;
+}
+  footer{
+    width: 100%;
+    height: auto;
+    background-color: rgb(32, 31, 31);
+    padding: 10px;
+    text-align: center;
+    font-size: 15px;
+    color: #b8b6b6;
+}
+
+.logout-btn{
+    background-color: #ffffff;
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #000000;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 40px;
+    line-height: 20px;
+    list-style: none;
+    margin: 0;
+    outline: none;
+    padding: 10px 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: color 100ms;
+    vertical-align: baseline;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  .logout-btn{
+     margin-right: 20px;
+     position:absolute;
+     top: 35px;
+     right: 3%;
+  }
+  .logout-btn:hover,
+  .logout-btn:focus {
+    background-color: #d6d9d0;
+  }

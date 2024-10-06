@@ -27,19 +27,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     
     // Check if the seller exists
-    $sql = "SELECT * FROM seller_table WHERE seller_username = ?";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, 's', $username);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
+    $sql = "SELECT * FROM seller_table WHERE seller_username = '$username'";
+    $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
-        
+
         // Check the password directly (no hashing)
         if ($password === $row['seller_password']) {
             // Store seller info in session and redirect to seller home
             $_SESSION['seller_username'] = $row['seller_username'];
+            $_SESSION['seller_name'] = $row['seller_name']; // Ensure this is set
+
+            // Redirect to seller home
             header("Location: seller_home.php");
             exit();
         } else {
