@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
             // Move uploaded image to target directory
             if (move_uploaded_file($productImageTmp, $targetFile)) {
                 // Prepare the insert query
-                $addProductQuery = "INSERT INTO product_table (name, seller_id, price, description, stock_quantity, image_path) VALUES (?, ?, ?, ?, ?, ?)";
+                $addProductQuery = "INSERT INTO product_table (product_name, seller_id, price, description, stock_quantity, image_path) VALUES (?, ?, ?, ?, ?, ?)";
                 $stmt = $conn->prepare($addProductQuery);
 
                 // Ensure the statement was prepared successfully
@@ -94,7 +94,7 @@ $conn->close();
                 <label for="product_name">Product Name</label>
                 <input type="text" id="product_name" name="product_name" required>
 
-                <label for="product_price">Product Price ($)</label>
+                <label for="product_price">Product Price (₹)</label>
                 <input type="number" step="0.01" id="product_price" name="product_price" required>
 
                 <label for="product_stock">Stock Quantity</label>

@@ -1,237 +1,271 @@
+/* Global Reset */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9; /* Light gray background for a fresh look */
+    color: #333;
+}
+
+/* Header Styles */
 header {
-    width: 100%;
-    height: auto;
+    background-color: #4caf50; /* Fresh green background */
+    padding: 15px 30px; /* Ample padding */
     display: flex;
-    align-items: center; /* Center items vertically */
-    background-color: rgb(46, 44, 44); /* Set background to black */
-    padding: 10px; /* Add padding for spacing */
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-.logo {
-    width: auto; /* Adjust width if needed */
-    height: auto;
-    padding: 10px; /* Add padding for spacing */
+.container {
+    width: 1400px;
+    margin: 10px auto; /* Margin for top and bottom */
+    padding: 10px;
 }
 
-.menu {
-    width: 100%;
-    text-align: center; /* Center align the menu */
+.logo img {
+    max-height: 100%;
 }
 
-nav ul {
+/* Menu Styles */
+.menu nav ul {
     padding: 0;
     list-style: none;
-    display: inline-block; /* Center the menu items */
+    display: flex;
+    gap: 0px;
+    justify-content: center; /* Center the menu items */
 }
 
-nav ul li {
-    display: inline; /* Ensure the menu items are inline */
-    margin: 0 15px; /* Add space between menu items */
+.menu nav ul li {
+    margin: 0;
+    position: relative; /* Needed for dropdown */
 }
 
-nav ul li a {
-    color: white; /* Change link color to white for better contrast */
-    padding: 10px 15px;
-    text-decoration: none;
-}
-
-nav ul li a:hover {
-    background: #c8c8c8; /* Change background color on hover */
-    color: rgb(83, 81, 81); /* Change text color on hover */
-}
-
-
-nav ul li a:hover {
-    background: #c8c8c8;
-}
-
-.welcome {
-    width: 100%;
-    height: auto;
-    text-align: center;
-    padding: 20px;
-    background-color: #474e5d;
+.menu nav ul li a {
     color: white;
+    font-size: 18px; /* Slightly larger text */
+    text-decoration: none;
+    transition: color 0.3s;
+    padding: 10px 15px; /* Add padding for better touch area */
 }
 
+.menu nav ul li a:hover {
+    color: #c8e6c9; /* Light green on hover */
+}
+
+/* Dropdown Menu Styles */
+.dropdown {
+    position: absolute; /* Position it below the menu item */
+    background-color: #4caf50; /* Match the header background */
+    border-radius: 5px;
+    width: 120px; /* Set this to match the save button width */
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1500; /* Ensure it appears above other elements */
+    transform: translateX(-50%); /* Adjust to center */
+}
+
+.menu nav ul li:hover .dropdown {
+    display: block; /* Show the dropdown on hover */
+}
+
+
+.menu nav ul li:hover .dropdown {
+    display: block; /* Show the dropdown on hover */
+}
+
+.dropdown ul {
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+}
+
+.dropdown ul li {
+    padding: 10px 15px;
+}
+
+.dropdown ul li a {
+    color: white;
+    text-decoration: none;
+    display: block; /* Make the entire area clickable */
+    transition: background-color 0.3s;
+}
+
+.dropdown ul li a:hover {
+    background-color: #c8e6c9; /* Light green on hover */
+}
+
+/* Logout Button */
+.logout-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #d32f2f;
+}
+
+/* Save Button */
+.save-btn {
+    background-color: #4caf50; /* Match the header color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px; /* Slightly larger text */
+}
+
+.save-btn:hover {
+    background-color: #388e3c; /* Darker green on hover */
+}
+
+/* Dashboard Section */
 .dashboard {
+    background-color: #fff;
     padding: 20px;
-    background-color: #f0f0f0;
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    margin-bottom: 30px; /* Space between sections */
+}
+
+.dashboard h3 {
     text-align: center;
+    color: #388e3c; /* Dark green */
+    margin-bottom: 20px;
+    font-size: 24px; /* Larger title */
 }
 
 .dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
     gap: 20px;
-    max-width: 1000px;
-    margin: 0 auto; /* Center the grid */
 }
 
 .dashboard-item {
-    background-color: #ffffff;
+    background-color: #e8f5e9; /* Light green background */
     padding: 20px;
     border-radius: 10px;
     text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s; /* Smooth hover effect */
 }
 
+.dashboard-item:hover {
+    transform: translateY(-5px); /* Lift effect */
+}
 
+.dashboard-item h4 {
+    margin-bottom: 10px;
+    color: #388e3c;
+    font-size: 18px; /* Slightly larger */
+}
+
+.dashboard-item p {
+    font-size: 20px; /* Bold size */
+    font-weight: bold;
+    color: #333;
+}
+
+/* Orders Section */
 .orders {
+    background-color: #fff;
     padding: 20px;
-    background-color: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.orders h3 {
+    text-align: center;
+    color: #388e3c;
+    margin-bottom: 20px;
+    font-size: 24px; /* Larger title */
 }
 
 .orders-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
 }
 
 .orders-table th, .orders-table td {
-    border: 1px solid #dddddd;
+    padding: 12px;
     text-align: left;
-    padding: 8px;
+    border-bottom: 1px solid #e0e0e0;
 }
 
 .orders-table th {
-    background-color: #474e5d;
+    background-color: #388e3c; /* Dark green header */
     color: white;
-}
-.orders h3{
-    text-align: center;
-}
-.orders-table td {
-    background-color: #ffffff;
 }
 
 .orders-table tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #f2f2f2; /* Light gray for alternate rows */
 }
 
-.products {
-    padding: 30px;
+.orders-table td {
+    background-color: white;
 }
 
-.products h3 {
-    text-align: center;
-}
-
-.image-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px; /* Adjust the spacing between images */
-}
-
-.image-item img {
-    width: 150px; /* Set the width you want */
-    height: 150px; /* Set the height you want */
-    object-fit: cover; /* This will maintain the aspect ratio and cover the area */
-    border-radius: 5px; /* Optional: add some border radius */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: add shadow for depth */
-}
-
-.image-item {
-    position: relative;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-
-.add-product-btn {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    background-color: #4b5577;
+/* Footer */
+footer {
+    background-color: #4caf50; /* Green footer */
     color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 12px;
 }
 
-.add-product-btn:hover {
-    background-color: #3b4a66;
-}
-
-.orders {
+/* About Section */
+.about {
+    background-color: #a5d6a7; /* Lighter green */
+    color: white;
     padding: 20px;
-    background-color: #f0f0f0;
+    border-radius: 10px;
+    margin-top: 0px;
 }
 
-.orders-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+.about h1 {
+    margin-bottom: 10px;
 }
 
-.orders-table th, .orders-table td {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
+.about p {
+    font-size: 16px;
 }
 
-.about{
-    width: 100%;
-    height: auto;
-    padding: 10px;
+/* Contact Information Section */
+.contact-info {
+    background-color: #c8e6c9; /* Even lighter green */
+    color: #333;
+    padding: 20px;
+    border-radius: 10px;
     text-align: center;
-    background-color: #474e5d;
-    color: white;
-  }
-  .contact-info {
-    width: 100%;
-    padding: 10px;
-    height: auto;
-    text-align: center;
-    padding-bottom: 10px;
-    background-color: #a39f9f;
+    margin-top: 10px;
 }
+
 .contact-info h2 {
-    margin: 10px;
-}
-  footer{
-    width: 100%;
-    height: auto;
-    background-color: rgb(32, 31, 31);
-    padding: 10px;
-    text-align: center;
-    font-size: 15px;
-    color: #b8b6b6;
+    margin-bottom: 10px;
 }
 
-.logout-btn{
-    background-color: #ffffff;
-    border-radius: 8px;
-    border-style: none;
-    box-sizing: border-box;
-    color: #000000;
-    cursor: pointer;
-    display: inline-block;
-    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    height: 40px;
-    line-height: 20px;
-    list-style: none;
-    margin: 0;
-    outline: none;
-    padding: 10px 16px;
-    position: relative;
-    text-align: center;
-    text-decoration: none;
-    transition: color 100ms;
-    vertical-align: baseline;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-  }
-  .logout-btn{
-     margin-right: 20px;
-     position:absolute;
-     top: 35px;
-     right: 3%;
-  }
-  .logout-btn:hover,
-  .logout-btn:focus {
-    background-color: #d6d9d0;
-  }
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .menu nav ul {
+        flex-direction: column; /* Stack menu items on small screens */
+        align-items: center; /* Center align */
+    }
+
+    .logout-btn {
+        margin-top: 10px; /* Space above logout button */
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr; /* Single column layout */
+    }
+}

@@ -16,9 +16,6 @@ $seller_username = $_SESSION['seller_username'];
 if (isset($_POST['remove_product'])) {
     $productId = $_POST['product_id'];
 
-    // Debugging: Print product ID to check if it's correctly passed
-    echo "Removing product with ID: $productId<br>";
-
     // Prepare the DELETE query using a prepared statement
     $removeProductQuery = "DELETE FROM product_table WHERE product_id = ?";
     $stmt = $conn->prepare($removeProductQuery);
@@ -54,7 +51,7 @@ if (isset($_POST['search'])) {
 $productsQuery = "SELECT * FROM product_table WHERE seller_id = '$seller_username'";
 if (!empty($searchTerm)) {
     $searchTerm = $conn->real_escape_string($searchTerm); // Prevent SQL injection
-    $productsQuery .= " AND name LIKE '%$searchTerm%'";
+    $productsQuery .= " AND product_name LIKE '%$searchTerm%'";
 }
 
 $productsResult = $conn->query($productsQuery);
@@ -70,6 +67,11 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fresh Cart - Seller Products</title>
     <link rel="stylesheet" href="/fresh_cart/css/seller_products.css">
+    <script>
+        function logout() {
+            window.location.href = 'seller_logout.php';  // Redirects to the PHP file
+        }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -83,14 +85,16 @@ $conn->close();
                 <nav>
                     <ul>
                         <li><a href="seller_home.php">Dashboard</a></li>
-                        <li><a href="seller_logout.php" class="login-btn">Logout</a></li>
+                        <li><a href="sales_report.php">Sales Report</a></li>
+                        <li><a href="#">Update Account</a></li>
                     </ul>
                 </nav>
             </div>
+            <button class="logout-btn" onclick="logout()">Logout</button>
         </header>
 
         <!-- Section for Add Product Button -->
-        <section class="add-product-section" >
+        <section class="add-product-section">
             <a href="add_product.php" class="add_btn">Add New Product</a>
         </section>
 
@@ -112,7 +116,7 @@ $conn->close();
                         <article>
                             <img src="/Fresh_Cart/uploads/<?php echo htmlspecialchars($product['image_path']); ?>" alt="Product Image" class="product-image">
                             <div class="text">
-                                <h3><?php echo htmlspecialchars($product['name']); ?></h3>
+                                <h3><?php echo htmlspecialchars($product['product_name']); ?></h3>
                                 <p>Price: $<?php echo htmlspecialchars($product['price']); ?></p>
                                 <p>Stock: <?php echo htmlspecialchars($product['stock_quantity']); ?></p>
                             
@@ -125,7 +129,7 @@ $conn->close();
                                 <!-- Remove Form -->
                                 <form method="POST" style="margin-top: 10px;">
                                     <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product['product_id']); ?>">
-                                    <button type="submit" class="remove-button" name="remove_product" >Remove</button>
+                                    <button type="submit" class="remove-button" name="remove_product">Remove</button>
                                 </form>
                             </div>
                         </article>
