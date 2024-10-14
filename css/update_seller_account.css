@@ -22,8 +22,14 @@ header {
     padding: 20px;
 }
 
+.logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px; /* Increased margin for spacing */
+}
+
 .logo img {
-    max-height: 100%;
+    width: 100px; /* Adjust logo size if needed */
 }
 
 /* Menu Styles */
@@ -67,7 +73,7 @@ header {
 }
 .form-container {
     background-color: white; /* Use a white background for the form */
-    padding: 20px; /* Increase padding for a spacious look */
+    padding: 10px; /* Increase padding for a spacious look */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Softer shadow */
     border-radius: 10px; /* Rounded corners */
     margin-top: 20px; /* Increase margin to separate from top */
@@ -76,11 +82,12 @@ header {
 h2 {
     text-align: center;
     color: #4caf50; /* Use a fresh green color for the heading */
-    margin-bottom: 20px; /* Add bottom margin */
+    margin-bottom: 10px; /* Add bottom margin */
 }
 
 input[type="text"],
 input[type="number"],
+input[type="password"],
 textarea,
 input[type="file"] {
     width: 100%;
@@ -112,7 +119,7 @@ input[type=file]::file-selector-button:hover {
 }
 
 /* Button Styles */
-.add_product, .back-button {
+.update-btn, .back-button {
     width: 100%;
     background-color: #6bbe41; /* Use the same orange as add product button */
     color: white;
@@ -137,13 +144,4 @@ button:hover {
     background-color: #d32f2f; /* Darker red on hover */
 }
 
-/* Logo Styles */
-.logo {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px; /* Increased margin for spacing */
-}
 
-.logo img {
-    width: 150px; /* Adjust logo size if needed */
-}

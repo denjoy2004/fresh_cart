@@ -14,10 +14,11 @@ $seller_username = $_SESSION['seller_username'];
 
 // Handle adding a new product
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
-    $productName = $_POST['product_name'];
-    $productPrice = $_POST['product_price'];
-    $productStock = $_POST['product_stock'];
-    $productDescription = $_POST['product_description'];
+    // Sanitize input data
+    $productName = htmlspecialchars(trim($_POST['product_name']));
+    $productPrice = floatval($_POST['product_price']);
+    $productStock = intval($_POST['product_stock']);
+    $productDescription = htmlspecialchars(trim($_POST['product_description']));
     $productImage = $_FILES['product_image']['name'];
     $productImageTmp = $_FILES['product_image']['tmp_name'];
     $imageError = $_FILES['product_image']['error'];
@@ -56,11 +57,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
                         header("Location: seller_products.php");
                         exit();
                     } else {
-                        echo "Error: " . $stmt->error;
+                        error_log("Database error: " . $stmt->error); // Log error
+                        echo "Error adding product. Please try again.";
                     }
                     $stmt->close();
                 } else {
-                    echo "Error preparing statement: " . $conn->error;
+                    error_log("Statement preparation error: " . $conn->error); // Log error
+                    echo "Error preparing statement. Please try again.";
                 }
             } else {
                 echo "Error uploading image.";
@@ -85,9 +88,23 @@ $conn->close();
 </head>
 <body>
     <div class="container">
-        <div class="logo">
-            <img src="/fresh_cart/images/logo-no-background.png" alt="Fresh Cart Logo">
-        </div>
+    <header>
+            <div class="logo">
+                <a href="seller_home.php">
+                    <img src="/fresh_cart/images/logo-no-background.png" width="200px" height="auto" alt="Fresh Cart Logo">
+                </a>
+            </div>
+            <div class="menu">
+                <nav>
+                    <ul>
+                        <li><a href="seller_home.php">Dashboard</a></li>
+                        <li><a href="sales_report.php">Sales Report</a></li>
+                        <li><a href="#">Update Account</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </header>
         <div class="form-container">
             <h2>Add New Product</h2>
             <form method="POST" enctype="multipart/form-data">
@@ -106,7 +123,7 @@ $conn->close();
                 <label for="product_image">Product Image</label>
                 <input type="file" id="product_image" name="product_image" accept="image/*" required>
 
-                <button type="submit" name="add_product">Add Product</button>
+                <button type="submit" class="add_product" name="add_product">Add Product</button>
                 <a href="seller_products.php"><button type="button" class="back-button">Back to Products</button></a>
             </form>
         </div>

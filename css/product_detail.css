@@ -1,0 +1,163 @@
+/* Global Reset */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9; /* Light gray background for a fresh look */
+    color: #333;
+}
+
+/* Container for overall layout */
+.container {
+    width: 1400px; /* Fixed width for consistency */
+    margin: 20px auto; /* Centering the container with more space */
+    padding: 10px;
+}
+
+/* Header Styles */
+header {
+    background-color: #4caf50; /* Fresh green background */
+    padding: 15px 30px; /* Ample padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Subtle shadow */
+}
+
+.logo {
+    margin-right: auto; /* Push the logo to the left */
+}
+
+.logo img {
+    max-height: 100%;
+}
+
+/* Menu Styles */
+.menu nav ul {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 20px; /* Add spacing between menu items */
+}
+
+.menu nav ul li {
+    margin: 0;
+    position: relative; /* Needed for dropdown */
+}
+
+.menu nav ul li a {
+    color: white;
+    font-size: 18px; /* Slightly larger text */
+    text-decoration: none;
+    transition: color 0.3s;
+    padding: 10px 15px; /* Add padding for better touch area */
+}
+
+.menu nav ul li a:hover {
+    color: #c8e6c9; /* Light green on hover */
+}
+
+/* Logout Button */
+.logout-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #d32f2f;
+}
+
+.main {
+    padding: 20px;
+}
+
+.product-detail {
+    display: flex;
+    margin: 20px 0;
+    background-color: #ffffff; /* White background for product details */
+    padding: 30px; /* Increased padding for better layout */
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Deeper shadow for depth */
+}
+
+.product-image {
+    width: 350px; /* Increased size for product image */
+    height: auto;
+    margin-right: 30px; /* Increased margin for more space */
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Light shadow around the image */
+}
+
+.product-info {
+    max-width: 600px;
+}
+
+.product-info h1 {
+    margin: 0;
+    font-size: 28px; /* Larger title font size */
+    color: #333;
+}
+
+.price, .seller {
+    font-size: 20px; /* Increased font size for price and seller */
+    color: #555;
+    margin: 10px 0; /* Added margin for spacing */
+}
+
+.description {
+    margin: 10px 0;
+    font-size: 18px; /* Slightly larger description font size */
+    color: #777;
+}
+
+.button-group {
+    margin-top: 20px;
+}
+
+.add-to-cart-btn, .buy-btn {
+    padding: 12px 20px; /* Larger buttons */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 15px; /* More space between buttons */
+    font-size: 16px; /* Increased button text size */
+    transition: background-color 0.3s, transform 0.2s; /* Added transform for effect */
+}
+
+.add-to-cart-btn:hover, .buy-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05); /* Scale effect on hover */
+}
+.view-seller-btn {
+    padding: 10px 20px; /* Padding for the button */
+    background-color: #007BFF; /* Blue background */
+    color: white; /* White text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.view-seller-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 20px; /* Space above footer */
+}

@@ -25,43 +25,42 @@
         // Check if all required fields are filled
         if (empty($productName) || empty($productPrice) || empty($productStock) || empty($productDescription)) {
             echo "Error: All fields are required.";
-            exit();
-        }
+        } else {
+            // Check if a new product image is uploaded
+            $productImage = null;
+            if (!empty($_FILES['product_image']['name'])) {
+                $productImage = $_FILES['product_image']['name'];
+                $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/Fresh_Cart/uploads/";
+                $targetFile = $targetDir . basename($productImage);
         
-        // Check if a new product image is uploaded
-        $productImage = null;
-        if (!empty($_FILES['product_image']['name'])) {
-            $productImage = $_FILES['product_image']['name'];
-            $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/Fresh_Cart/uploads/";
-            $targetFile = $targetDir . basename($productImage);
-    
-            // Move the uploaded file to the target directory
-            if (!move_uploaded_file($_FILES['product_image']['tmp_name'], $targetFile)) {
-                echo "Error uploading image.";
-                exit();
+                // Move the uploaded file to the target directory
+                if (!move_uploaded_file($_FILES['product_image']['tmp_name'], $targetFile)) {
+                    echo "Error uploading image.";
+                    exit();
+                }
             }
-        }
-    
-        // Prepare the SQL query for updating the product
-        if (!is_null($productImage)) {
-            // Update the product with image
-            $updateQuery = "UPDATE product_table SET product_name=?, price=?, stock_quantity=?, description=?, image_path=? WHERE product_id=?";
-            $stmt = $conn->prepare($updateQuery);
-            $stmt->bind_param('sdissi', $productName, $productPrice, $productStock, $productDescription, $productImage, $productId);
-        } else {
-            // Update the product without image
-            $updateQuery = "UPDATE product_table SET product_name=?, price=?, stock_quantity=?, description=? WHERE product_id=?";
-            $stmt = $conn->prepare($updateQuery);
-            $stmt->bind_param('sdssi', $productName, $productPrice, $productStock, $productDescription, $productId);
-        }
-    
-        // Execute the query and check if the update is successful
-        if ($stmt->execute()) {
-            // Redirect to the seller products page
-            header("Location: seller_products.php");
-            exit();
-        } else {
-            echo "Error updating product: " . $stmt->error;
+        
+            // Prepare the SQL query for updating the product
+            if (!is_null($productImage)) {
+                // Update the product with image
+                $updateQuery = "UPDATE product_table SET product_name=?, price=?, stock_quantity=?, description=?, image_path=? WHERE product_id=?";
+                $stmt = $conn->prepare($updateQuery);
+                $stmt->bind_param('sdissi', $productName, $productPrice, $productStock, $productDescription, $productImage, $productId);
+            } else {
+                // Update the product without image
+                $updateQuery = "UPDATE product_table SET product_name=?, price=?, stock_quantity=?, description=? WHERE product_id=?";
+                $stmt = $conn->prepare($updateQuery);
+                $stmt->bind_param('sdssi', $productName, $productPrice, $productStock, $productDescription, $productId);
+            }
+        
+            // Execute the query and check if the update is successful
+            if ($stmt->execute()) {
+                // Redirect to the seller products page
+                header("Location: seller_products.php");
+                exit();
+            } else {
+                echo "Error updating product: " . $stmt->error;
+            }
         }
     }
     
@@ -85,15 +84,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Product - Fresh Cart</title>
     <link rel="stylesheet" href="/fresh_cart/css/edit_product.css">
+    <script>
+        function logout() {
+            window.location.href = 'seller_logout.php';  // Redirect to logout
+        }
+    </script>
 </head>
 <body>
     <div class="container">
-        <div class="logo">
-            <img src="/fresh_cart/images/logo-no-background.png" alt="Fresh Cart Logo">
-        </div>
+        <header>
+            <div class="logo">
+                <a href="seller_home.php">
+                    <img src="/fresh_cart/images/logo-no-background.png" width="200px" height="auto" alt="Fresh Cart Logo">
+                </a>
+            </div>
+            <div class="menu">
+                <nav>
+                    <ul>
+                        <li><a href="seller_home.php">Dashboard</a></li>
+                        <li><a href="sales_report.php">Sales Report</a></li>
+                        <li><a href="#">Update Account</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </header>
+
         <div class="form-container">
             <h2>Edit Product</h2>
-            <form method="POST" enctype="multipart/form-data">
+            <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
                 <!-- Hidden field for product ID -->
                 <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product['product_id']); ?>">
 
@@ -118,7 +137,7 @@
                 <input type="file" id="product_image" name="product_image" accept="image/*">
 
                 <!-- Submit and Back Buttons -->
-                <button type="submit" name="edit_product">Update Product</button>
+                <button type="submit" class="update_button" name="edit_product">Update Product</button>
                 <a href="seller_products.php"><button type="button" class="back-button">Back to Products</button></a>
             </form>
         </div>

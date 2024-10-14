@@ -100,7 +100,6 @@ $conn->close();
 
         <!-- Section for Search -->
         <section class="search-section">
-            <h3>Search Products</h3>
             <form method="POST">
                 <input type="text" name="search_term" placeholder="Search by product name..." value="<?php echo htmlspecialchars($searchTerm); ?>">
                 <button type="submit" name="search">Search</button>

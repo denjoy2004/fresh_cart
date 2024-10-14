@@ -25,10 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             switch (userType) {
                 case 'user':
-                    url = '/Fresh_Cart/buyer/buyer_login.php';
+                    url = 'buyer/buyer_login.php';
                     break;
                 case 'seller':
-                    url = '/Fresh_Cart/seller/seller_login.php';
+                    url = 'seller/seller_login.php';
                     break;
                 case 'admin':
                     url = 'admin.html';

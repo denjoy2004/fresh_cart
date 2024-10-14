@@ -1,0 +1,126 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 10px auto;
+    padding: 10px;
+}
+
+header {
+    background-color: #4caf50;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.logo img {
+    max-height: 100%;
+}
+
+.menu nav ul {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.menu nav ul li a {
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+    transition: color 0.3s, transform 0.3s;
+    padding: 10px 15px;
+}
+
+.menu nav ul li a:hover {
+    color: #c8e6c9;
+    transform: scale(1.05);
+}
+
+main {
+    padding: 20px;
+}
+
+.products-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px -10px;
+}
+
+.product-card {
+    flex: 0 1 calc(20% - 20px);
+    box-sizing: border-box;
+    margin: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    background-color: #fff;
+    transition: box-shadow 0.3s;
+}
+
+.product-card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.product-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-to-cart-btn, .view-details-btn {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+    width: 120px;
+    text-align: center;
+}
+
+.add-to-cart-btn {
+    background-color: #4caf50;
+    color: white;
+}
+
+.view-details-btn {
+    background-color: #f9a825;
+    color: white;
+}
+
+.add-to-cart-btn:hover, .view-details-btn:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 20px;
+}

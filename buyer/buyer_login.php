@@ -41,11 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $row = mysqli_fetch_assoc($result);
             
             // Verify the password
-            if (!empty($row['password']) && $row['password'] === $password) {
+            if ($password === $row['buyer_password']) {
                 // Store user info in session and redirect to buyer home
-                $_SESSION['buyer_id'] = $row['id'];
-                $_SESSION['buyer_name'] = $row['name'];
-                header("Location: C:\xampp\htdocs\Fresh_Cart\buyer\buyer_home.php");
+                $_SESSION['buyer_username'] = $row['buyer_username'];
+                $_SESSION['buyer_name'] = $row['buyer_name'];
+                header("Location: buyer_home.php");
                 exit();
             } else {
                 $error_message = "Invalid password.";
@@ -68,7 +68,7 @@ mysqli_close($conn);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fresh Cart - Buyer Login</title>
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="../login/login.css">
     <script src="/login/login.js"></script>
 
 </head>
