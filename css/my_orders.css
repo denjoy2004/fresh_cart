@@ -1,0 +1,183 @@
+/* Global Reset */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9; /* Light gray background for a fresh look */
+    color: #333;
+}
+
+/* Container for overall layout */
+.container {
+    width: 1400px; /* Fixed width for consistency */
+    margin: 10px auto; /* Centering the container */
+    padding: 10px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* Header Styles */
+header {
+    background-color: #4caf50; /* Fresh green background */
+    padding: 15px 30px; /* Ample padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Subtle shadow */
+}
+
+.logo {
+    margin-right: auto; /* Push the logo to the left */
+}
+
+.logo img {
+    max-height: 100%;
+}
+
+/* Menu Styles */
+.menu nav ul {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 0px;
+    justify-content: center; /* Center the menu items */
+}
+
+.menu nav ul li {
+    margin: 0;
+    position: relative; /* Needed for dropdown */
+}
+
+.menu nav ul li a {
+    color: white;
+    font-size: 18px; /* Slightly larger text */
+    text-decoration: none;
+    transition: color 0.3s;
+    padding: 10px 15px; /* Add padding for better touch area */
+}
+
+.menu nav ul li a:hover {
+    color: #c8e6c9; /* Light green on hover */
+}
+
+/* Logout Button */
+.logout-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #d32f2f;
+}
+/* Orders Container */
+.orders-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.orders-container h1 {
+    margin-bottom: 20px;
+    color: #4CAF50;
+}
+
+/* Order Table */
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.order-table th, .order-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.order-table th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+
+.order-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Action Buttons */
+button {
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #a5cfb7;
+}
+
+/* Specific styles for cancel button */
+.orders-container .cancel-btn {
+    background-color: #ff4d4d; /* Red for cancel */
+}
+
+.orders-container .cancel-btn:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+}
+
+/* Specific styles for view details button */
+.orders-container .view-details-btn {
+    background-color: #4CAF50; /* Green for view details */
+}
+
+.orders-container .view-details-btn:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+/* Disabled button styles */
+button:disabled {
+    cursor: not-allowed;
+}
+
+
+/* Product Table (Nested) */
+.product-table-container {
+    margin-top: 10px;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.product-table th, .product-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.product-table th {
+    background-color: #e7f4e8;
+    color: #333;
+}
+
+.product-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #777;
+}
+

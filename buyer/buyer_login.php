@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $row = mysqli_fetch_assoc($result);
             
             // Verify the password
-            if ($password === $row['buyer_password']) {
+            if ($password === $row['buyer_password'] && $username === $row['buyer_username'] ) {
                 // Store user info in session and redirect to buyer home
                 $_SESSION['buyer_username'] = $row['buyer_username'];
                 $_SESSION['buyer_name'] = $row['buyer_name'];
@@ -105,22 +105,11 @@ mysqli_close($conn);
             <?php endif; ?>
 
             <div class="register">
-                <p>Don't have an account? <a href="/fresh_cart/login/user_signup.php">Register</a></p>
+                <p>Don't have an account? <a href="buyer_signup.php">Register</a></p>
             </div>
         </form>
     </div>
     
-    <section class="contact-info">
-        <h2>Contact Information</h2>
-        <address>
-            Fresh Cart<br>
-            Kochi<br>
-            Kerala, 686582<br>
-            Phone: <a href="tel:+919539658310">+91 9539658310</a><br>
-            Email: <a href="mailto:freshcart@gmail.com">freshcart@gmail.com</a>
-        </address>
-    </section>
-
-    <footer>&copy; Copyright 2024 Fresh Cart. All rights reserved.</footer>
+    <?php include '../footer.php'; ?>
 </body>
 </html>

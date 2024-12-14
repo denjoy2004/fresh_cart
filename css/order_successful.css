@@ -1,0 +1,252 @@
+/* Global Reset */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9; /* Light gray background for a fresh look */
+    color: #333;
+}
+
+/* Container for overall layout */
+.container {
+    max-width: 1400px; /* Use max-width for responsiveness */
+    width: 100%; /* Full width on smaller screens */
+    margin: 10px auto; /* Centering the container */
+    padding: 20px; /* Increased padding for better spacing */
+    text-align: center;
+}
+/* Header Styles */
+header {
+    background-color: #4caf50; /* Fresh green background */
+    padding: 20px 30px; /* Increased padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Deeper shadow for emphasis */
+}
+
+/* Logo Styles */
+.logo img {
+    max-height: 80px; /* Adjusted logo height */
+}
+
+/* Menu Styles */
+.menu nav ul {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 20px; /* More space between items */
+}
+
+.menu nav ul li a {
+    color: white;
+    font-size: 18px; /* Slightly larger text */
+    text-decoration: none;
+    transition: color 0.3s, background-color 0.3s; /* Transition for background */
+    padding: 12px 18px; /* Increased padding */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.menu nav ul li a:hover {
+    color: #c8e6c9; /* Light green on hover */
+    background-color: rgba(255, 255, 255, 0.2); /* Subtle background on hover */
+}
+
+/* Logout Button */
+.logout-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s; /* Added transform */
+}
+.messege{
+    color: #d32f2f;
+}
+.logout-btn:hover {
+    background-color: #d32f2f;
+    transform: scale(1.05); /* Slightly enlarge on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
+}
+
+/* About Section */
+.about {
+    width: 100%;
+    border-radius: 10px; /* Slightly increased border radius */
+    padding: 20px;
+    text-align: center;
+    background-color: #474e5d;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    transition: transform 0.3s; /* Smooth transition for hover effect */
+}
+
+.about:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+}
+
+/* Contact Info Section */
+.contact-info {
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    background-color: #a39f9f;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    transition: transform 0.3s; /* Smooth transition for hover effect */
+}
+
+.contact-info:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+}
+
+.contact-info h2 {
+    margin: 10px 0;
+}
+
+/* Footer */
+footer {
+    width: 100%;
+    border-radius: 0 0 10px 10px; /* Slightly increased border radius */
+    background-color: rgb(32, 31, 31);
+    padding: 20px;
+    text-align: center;
+    font-size: 15px;
+    color: #b8b6b6;
+}
+
+
+
+.messege {
+    animation: fadeIn 1s ease-in;
+    color: #f44336;
+}
+
+
+/* Success Message and Actions Container */
+.success-actions {
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    animation: fadeInSlideUp 1s ease-in-out;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        color: #d32f2f;
+    }
+    to {
+        opacity: 1;
+        color: #f44336;
+    }
+}
+/* View Orders Button */
+.view-orders-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 20px auto;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 2px solid transparent;
+}
+
+.view-orders-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #45a049, #4CAF50);
+}
+
+.view-orders-btn:active {
+    transform: translateY(-1px);
+}
+
+.btn-icon {
+    margin-right: 10px;
+    font-size: 1.3em;
+}
+
+/* Animation for both message and button */
+@keyframes fadeInSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hover effect for button */
+.view-orders-btn:hover .btn-icon {
+    animation: bounceIcon 0.5s ease infinite;
+}
+
+/* Additional hover effect */
+.view-orders-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    transform: scale(0);
+    transition: transform 0.3s ease;
+}
+
+.view-orders-btn:hover::before {
+    transform: scale(1);
+}
+
+/* Optional: Add a pulse animation to draw attention */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+    }
+}
+
+.view-orders-btn {
+    animation: pulse 2s infinite;
+}
+
+/* Optional: Disable pulse animation on hover */
+.view-orders-btn:hover {
+    animation: none;
+}
+
+/* Optional: Add a loading state */
+.view-orders-btn.loading {
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.view-orders-btn.loading::after {
+    content: '...';
+    animation: loadingDots 1.5s infinite;
+}
+
+@keyframes loadingDots {
+    0%, 20% { content: '.'; }
+    40%, 60% { content: '..'; }
+    80%, 100% { content: '...'; }
+}

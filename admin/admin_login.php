@@ -26,21 +26,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     
-    // Check if the seller exists
-    $sql = "SELECT * FROM seller_table WHERE seller_username = '$username'";
+    // Check if the admin exists
+    $sql = "SELECT * FROM admin_table WHERE admin_username = '$username'";
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
 
         // Check the password directly (no hashing)
-        if ($password === $row['seller_password']) {
-            // Store seller info in session and redirect to seller home
-            $_SESSION['seller_username'] = $row['seller_username'];
-            $_SESSION['seller_name'] = $row['seller_name']; // Ensure this is set
+        if ($password === $row['admin_password']) {
+            // Store admin info in session and redirect to admin home
+            $_SESSION['admin_username'] = $row['admin_username'];
+            $_SESSION['admin_name'] = $row['admin_name']; // Ensure this is set
 
-            // Redirect to seller home
-            header("Location: seller_home.php");
+            // Redirect to admin home
+            header("Location: admin_home.php");
             exit();
         } else {
             $error_message = "Invalid password.";
@@ -59,7 +59,7 @@ mysqli_close($conn);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fresh Cart - Seller Login</title>
+    <title>Fresh Cart - Admin Login</title>
     <link rel="stylesheet" href="../login/login.css">
     <script src="../js/login.js"></script>
 </head>
@@ -78,8 +78,8 @@ mysqli_close($conn);
     </div>
     
     <div class="login-box">
-        <form action="seller_login.php" method="post" onsubmit="return validate_login()">
-            <h2>Seller Login</h2>
+        <form action="admin_login.php" method="post" onsubmit="return validate_login()">
+            <h2>Admin Login</h2>
             <div class="input-field">
                 <input type="text" id="username" name="username" placeholder="Username" required>
             </div>
@@ -94,10 +94,6 @@ mysqli_close($conn);
             <?php if (isset($error_message)): ?>
                 <span class="error-message"><?php echo htmlspecialchars($error_message); ?></span>
             <?php endif; ?>
-
-            <div class="register">
-                <p>Don't have an account? <a href="seller_signup.php">Register</a></p>
-            </div>
         </form>
     </div>
     <?php include '../footer.php'; ?>

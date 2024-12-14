@@ -1,23 +1,54 @@
 <?php
+session_start();
+
+// Check if the seller is logged in
+if (!isset($_SESSION['buyer_username'])) {
+    header("Location: buyer_login.php");
+    exit();
+}
+
 // Include database connection
-include 'C:\xampp\htdocs\Fresh_Cart\db_connection.php'; // Adjust the path as necessary
+include 'C:\xampp\htdocs\Fresh_Cart\db_connection.php'; // Adjust the path if necessary
+
+// Handle Add to Cart functionality
+if (isset($_POST['add_to_cart'])) {
+    $product_id = $_POST['product_id'];
+    $quantity = $_POST['quantity'];
+
+    // Initialize cart if not already set
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
+    }
+
+    // Check if product is already in the cart
+    if (isset($_SESSION['cart'][$product_id])) {
+        $_SESSION['cart'][$product_id] += $quantity; // Increase quantity
+    } else {
+        $_SESSION['cart'][$product_id] = $quantity; // Add new product
+    }
+
+    // Redirect to the same page to avoid resubmission
+    header("Location: buyer_home.php"); // Updated to point back to the home page
+    exit();
+}
 
 // Query to get the most sold products
 $most_sold_query = "
-    SELECT p.product_id, p.product_name, p.price, p.stock_quantity, p.image_path,
-           COUNT(o.order_id) AS order_count
+    SELECT p.product_id, p.product_name, p.price, p.stock_quantity, p.description, p.image_path,
+           COUNT(oi.order_item_id) AS order_count
     FROM product_table p
-    LEFT JOIN order_table o ON p.product_id = o.product_id
+    LEFT JOIN order_items_table oi ON p.product_id = oi.product_id
     GROUP BY p.product_id
     ORDER BY order_count DESC
     LIMIT 5;";
 
 $most_sold_result = $conn->query($most_sold_query);
 
-// Fetch promotions and testimonials (assuming these variables are already defined)
+// Fetch promotions and testimonials (if needed)
 $promotions = ["20% off on all fruits!", "Buy 2 get 1 free on vegetables!"]; // Example promotions
 $testimonials = ["Great service!", "Loved the fresh produce!"]; // Example testimonials
 
+// Close the connection after querying
 $conn->close();
 ?>
 
@@ -27,30 +58,14 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buyer Home - Fresh Cart</title>
-    <link rel="stylesheet" href="../css/buyer_home.css"> 
+    <link rel="stylesheet" href="../css/buyer_home.css"> <!-- Make sure this CSS file exists -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <div class="container">    
-        <header>
-            <div class="logo">
-                <a href="index.html">
-                    <img src="../images/logo-no-background.png" width="200px" height="auto" alt="Fresh Cart Logo">
-                </a>
-            </div>
-            <div class="menu">
-                <nav>
-                    <ul>
-                        <li><a href="products_list.php">Products</a></li>
-                        <li><a href="my_orders.php">My Orders</a></li>
-                        <li><a href="account_settings.php">Account Settings</a></li>
-                        <li><a href="browse_products.php"><i class="fa fa-shopping-cart" style="font-size:36px"></i></a></li>
-                    </ul>
-                </nav>
-            </div>
-            <a href="buyer_logout.php"><button class="logout-btn">Logout</button></a>
-        </header>
-        
+    <div class="container">
+
+        <?php include 'buyer_header.php'; ?>
+
         <main>
             <!-- Most Sold Products Section -->
             <section class="most-sold">
@@ -59,17 +74,41 @@ $conn->close();
                     <?php if ($most_sold_result->num_rows > 0): ?>
                         <?php while ($row = $most_sold_result->fetch_assoc()): ?>
                             <div class="product-card">
-    <img src="../uploads/<?php echo htmlspecialchars($row['image_path']); ?>" alt="<?php echo htmlspecialchars($row['product_name']); ?>">
-    <h3><?php echo htmlspecialchars($row['product_name']); ?></h3>
-    <p>Price: &#8377;<?php echo htmlspecialchars($row['price']); ?></p>
-    <p>Stock: <?php echo htmlspecialchars($row['stock_quantity']); ?></p>
-    <p>Orders Count: <?php echo htmlspecialchars($row['order_count']); ?></p>
-    <div class="button-group">
-        <button class="add-to-cart-btn">Add to Cart<i class="fa fa-shopping-cart"></i></button>
-        <button class="buy-btn">Buy<i class="fa fa-shopping-cart"></i></button>
-    </div>
-</div>
-
+                                <img src="../uploads/<?php echo htmlspecialchars($row['image_path']); ?>" alt="<?php echo htmlspecialchars($row['product_name']); ?>">
+                                <h3><?php echo htmlspecialchars($row['product_name']); ?></h3>
+                                <p>Price: &#8377;<?php echo htmlspecialchars($row['price']); ?></p>
+                                <p><?php echo htmlspecialchars($row['description']); ?></p>
+                                <p class="stock">
+                                    <?php if ($row['stock_quantity'] > 0): ?>
+                                        <span style="color: green;">In Stock</span>
+                                        <div class="button-group">
+                                            <form action="add_to_cart.php" method="POST" class="add-to-cart-form">
+                                                <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>">
+                                                <input type="number" name="quantity" min="1" value="1" required class="quantity-input">
+                                                <button type="submit" name="add_to_cart" class="add-to-cart-btn">Add to Cart <i class="fa fa-shopping-cart"></i></button>
+                                            </form>
+                                            <!-- View More Details button -->
+                                            <form action="product_detail.php" method="POST" class="view-details-form">
+                                                <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>">
+                                                <button type="submit" class="view-details-btn">View Details</button>
+                                            </form>
+                                        </div>
+                                    <?php else: ?>
+                                        <span style="color: red;">Out of Stock</span>
+                                        <div class="button-group">
+                                            <form action="product_detail.php" method="POST" class="view-details-form">
+                                                <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>">
+                                                <button type="submit" class="view-details-btn">View Details</button>
+                                            </form>
+                                            <form class="add-to-cart-form">
+                                                <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>">
+                                                <input type="number" name="quantity" min="1" value="1" required class="quantity-input" readonly>
+                                                <button type="button" class="add-to-cart-btn" onclick="alert('Product is out of stock and cannot be added to cart')">Add to Cart <i class="fa fa-shopping-cart"></i></button>
+                                            </form>
+                                        </div>
+                                    <?php endif; ?>
+                                </p>
+                            </div>
                         <?php endwhile; ?>
                     <?php else: ?>
                         <p>No sold products found.</p>
@@ -108,24 +147,8 @@ $conn->close();
                     </div>
                 </div>
             </section>
-            <div class="about" id="about">
-        <h1>About Us</h1>
-        <p>
-            "Fresh Cart" is an online marketplace dedicated to facilitating the buying and selling of fresh fruits and vegetables. Our platform offers a seamless experience for both sellers and buyers, providing a convenient avenue to access high-quality produce. With a user-friendly interface, customers can browse through a diverse range of fruits and vegetables sourced directly from local farmers and trusted suppliers. From seasonal favorites to exotic varieties, Fresh Cart ensures freshness and quality with every purchase. Whether you're a farmer looking to sell your harvest or a consumer seeking the finest produce, Fresh Cart is your go-to destination for all things fresh and delicious.
-        </p>
-    </div>
-
-    <section class="contact-info" id="contact">
-        <h2>Contact Information</h2>
-        <address>
-            Fresh Cart<br>
-            Kochi<br>
-            Kerala, 686582<br>
-            Phone: <a href="tel:+919539658310">+91 9539658310</a><br>
-            Email: <a href="mailto:freshcart@gmail.com">freshcart@gmail.com</a>
-        </address>
-    </section>
+                    <?php include '../footer.php'; ?>
         </main>
-    <footer>&copy; Copyright 2024 Fresh Cart. All rights reserved.</footer>
+    </div>
 </body>
 </html>

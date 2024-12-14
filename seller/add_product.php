@@ -127,6 +127,8 @@ $conn->close();
                 <a href="seller_products.php"><button type="button" class="back-button">Back to Products</button></a>
             </form>
         </div>
+        <?php include '../footer.php'; ?>
     </div>
+</section>
 </body>
 </html>

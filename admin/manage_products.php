@@ -1,18 +1,16 @@
 <?php
 session_start();
 
-// Check if the buyer is logged in
-if (!isset($_SESSION['buyer_username'])) {
-    header("Location: buyer_login.php");
+// Check if the admin is logged in
+if (!isset($_SESSION['admin_username'])) {
+    header("Location: admin_login.php");
     exit();
 }
-
-// Include the database connection
-include 'C:\xampp\htdocs\Fresh_Cart\db_connection.php'; // Adjust the path as necessary
-
-// Initialize search keyword and sorting option
+include 'C:\xampp\htdocs\Fresh_Cart\db_connection.php'; 
 $search_keyword = '';
-$sort_option = 'default';
+$sort_option = isset($_POST['sort']) ? $_POST['sort'] : 'default';
+
+// Sanitize and process search input
 
 // Handle form submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -42,27 +40,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Redirect to the same page to avoid resubmission
-        header("Location: products_list.php");
+        header("Location: manage_prodcuts.php");
         exit();
     }
 }
-
-// Base query to get all products from all sellers
+// Prepare the base query
 $product_query = "
     SELECT p.product_id, p.product_name, p.price, p.stock_quantity, p.description, p.min_quantity, p.image_path, s.seller_name
     FROM product_table p
     JOIN seller_table s ON p.seller_id = s.seller_username
-    WHERE p.product_name LIKE '%$search_keyword%' OR s.seller_name LIKE '%$search_keyword%' AND p.status = 'active'";
+    WHERE (p.product_name LIKE ? OR s.seller_name LIKE ?)
+    AND p.status = 'active'
+";
 
-// Append sorting logic to the query
+// Apply sorting
 if ($sort_option === 'price-low-to-high') {
     $product_query .= " ORDER BY CAST(p.price AS DECIMAL(10, 2)) ASC"; // Sort by price low to high
 } elseif ($sort_option === 'price-high-to-low') {
     $product_query .= " ORDER BY CAST(p.price AS DECIMAL(10, 2)) DESC"; // Sort by price high to low
 }
 
-$product_result = $conn->query($product_query);
-$conn->close();
+// Prepare statement
+$stmt = $conn->prepare($product_query);
+$search_param = "%$search_keyword%";
+$stmt->bind_param("ss", $search_param, $search_param);
+$stmt->execute();
+
+// Get results
+$product_result = $stmt->get_result();
+$stmt->close();
 ?>
 
 <!DOCTYPE html>
@@ -76,11 +82,31 @@ $conn->close();
 </head>
 <body>
     <div class="container">
-        <?php include 'buyer_header.php'; ?>
+        <header>
+            <div class="logo">
+                <a href="admin_home.php">
+                    <img src="../images/logo-no-background.png" width="200px" height="auto" alt="Fresh Cart Logo">
+                </a>
+            </div>
+            <div class="menu">
+                <nav>
+                <ul>
+                        <li><a href="manage_products.php">Manage Products</a></li>
+                        <li><a href="manage_buyers.php">Manage Buyers</a></li>
+                        <li><a href="manage_sellers.php">Manage Sellers</a></li>
+                        <li><a href="manage_orders.php">Manage Orders</a></li>
+                        <li><a href="reports.php">Reports</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <a href="admin_logout.php"><button class="logout-btn">Logout</button></a>
+        </header>
+
         <main>
             <div class="sort-container">
+                
                 <label for="sort-options">Sort by:</label>
-                <form action="products_list.php" method="POST">
+                <form action="manage_products.php" method="POST">
                     <select id="sort-options" name="sort" onchange="this.form.submit()">
                         <option value="default" <?php echo $sort_option === 'default' ? 'selected' : ''; ?>>All Products</option>
                         <option value="price-low-to-high" <?php echo $sort_option === 'price-low-to-high' ? 'selected' : ''; ?>>Price: Low to High</option>
@@ -88,7 +114,7 @@ $conn->close();
                     </select>
                     <input type="hidden" name="search" value="<?php echo htmlspecialchars($search_keyword); ?>">
                 </form>
-                <form name="search-bar" action="products_list.php" method="POST" class="search-form">
+                <form name="search-bar" action="manage_products.php" method="POST" class="search-form">
                 <input type="text" name="search" placeholder="Search products..." value="<?php echo htmlspecialchars($search_keyword); ?>">
                 <button type="submit"><i class="fa fa-search"></i></button>
             </form>
@@ -103,33 +129,23 @@ $conn->close();
                                 <h3><?php echo $row['product_name']; ?></h3>
                                 <p><?php echo htmlspecialchars($row['description']); ?></p>
                                 <p>Minimum Quantity: <?php echo htmlspecialchars($row['min_quantity']); ?></p>
-                                <p>Price:  &#8377;<?php echo number_format($row['price'], 2); ?></p>
+                                <p>Price: &#8377;<?php echo number_format($row['price'], 2); ?></p>
                                 <p class="stock">
                                     <?php if ($row['stock_quantity'] > 0): ?>
                                         <span style="color: green;">In Stock</span>
                                         <div class="button-group">
-                                            <form action="product_detail.php" method="POST" class="view-details-form">
+                                            <form action="product_details.php" method="POST" class="view-details-form">
                                                 <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>">
                                                 <button type="submit" class="view-details-btn">View Details</button>
-                                            </form>
-                                            <form action="add_to_cart.php" method="POST" class="add-to-cart-form">
-                                                <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>">
-                                                <input type="number" name="quantity" min="1" value="1" required class="quantity-input">
-                                                <button type="submit" name="add_to_cart" class="add-to-cart-btn">Add to Cart <i class="fa fa-shopping-cart"></i></button>
                                             </form>
                                         </div>
                                     <?php else: ?>
                                         <span style="color: red;">Out of Stock</span>
-                                        <div class="button-group">
-                                            <form action="product_detail.php" method="POST" class="view-details-form">
+                                        <div c="button-group">
+                                            <form action="product_details.php" method="POST" class="view-details-form">
                                                 <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>">
                                                 <button type="submit" class="view-details-btn">View Details</button>
-                                            </form>
-                                            <form class="add-to-cart-form">
-                                                <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>">
-                                                <input type="number" name="quantity" min="1" value="1" required class="quantity-input">
-                                                <button type="submit" name="add_to_cart" onclick="alert('Product is out of stock and cannot be added to cart')" class="add-to-cart-btn">Add to Cart <i class="fa fa-shopping-cart"></i></button>
-                                            </form>
+                                            </form>  
                                         </div>
                                     <?php endif; ?>
                                 </p>

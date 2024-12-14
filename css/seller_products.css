@@ -17,9 +17,9 @@ header {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 .container {
-    width: 1400px;
-    margin: 0 auto;
-    padding: 20px;
+    width: 1400px; /* Fixed width for consistency */
+    margin: 10px auto; /* Centering the container */
+    padding: 10px;
 }
 
 .logo img {
@@ -137,7 +137,7 @@ article {
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 5px;
-    padding: 15px;
+    padding: 10px;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s;
@@ -148,9 +148,11 @@ article:hover {
 }
 
 .product-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
+    max-width: 100%; /* Responsive images */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Rounded corners for images */
+    height: 150px; /* Limit height */
+    width: 100%;
 }
 
 .text h3 {
@@ -158,25 +160,76 @@ article:hover {
     margin: 10px 0;
 }
 
-.edit-button,
-.remove-button{
-    background-color: #2196F3; /* Blue button */
-    color: white;
-    padding: 10px 15px;
+.button-group {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center; /* Center align buttons horizontally */
+    gap: 10px; /* Space between the buttons */
+    margin-top: 10px; /* Space above the button group */
+    width: 100%; /* Make the buttons fill the available width */
+}
+
+/* Add-to-Cart and View More Details buttons */
+.edit-button, .remove-button  {
+    background-color: #59af4c; /* Green background */
     border: none;
-    border-radius: 5px;
+    color: white;
+    padding: 10px; /* Ample padding for touch */
+    text-align: center;
+    font-size: 15px;
     cursor: pointer;
+    border-radius: 5px;
     transition: background-color 0.3s;
+    width: 230px; /* Make buttons take full width */
 }
 
-.edit-button:hover {
-    background-color: #1976D2; /* Darker blue on hover */
+/* Hover effect for buttons */
+.edit-button:hover, .remove-button:hover {
+    background-color: #45a049; /* Darker green on hover */
 }
 
-.remove-button {
-    background-color: #f44336; /* Red button */
+/* Ensure icons are properly spaced */
+.edit-button i, .remove-button i {
+    margin-left: 5px;
+    font-size: 15px;
 }
 
-.remove-button:hover {
-    background-color: #d32f2f; /* Darker red on hover */
+
+
+/* About Section */
+.about {
+    width: 1400px; /* Same width as the container */
+    border-radius: 8px 8px 0 0;
+    height: auto;
+    padding: 10px;
+    text-align: center;
+    background-color: #474e5d;
+    color: white;
 }
+
+/* Contact Info Section */
+.contact-info {
+    width: 1400px; /* Same width as the container */
+    padding: 10px;
+    height: auto;
+    text-align: center;
+    padding-bottom: 10px;
+    background-color: #a39f9f;
+}
+
+.contact-info h2 {
+    margin: 10px;
+}
+
+/* Footer */
+footer {
+    width: 1400px;
+    height: auto;
+    border-radius: 0 0 8px 8px;
+    background-color: rgb(32, 31, 31);
+    padding: 10px;
+    text-align: center;
+    font-size: 15px;
+    color: #b8b6b6;
+}
+

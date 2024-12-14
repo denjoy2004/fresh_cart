@@ -143,18 +143,6 @@ mysqli_close($conn);
             <button type="submit">Sign Up</button>
         </form>
     </div>
-
-    <section class="contact-info">
-        <h2>Contact Information</h2>
-        <address>
-            Fresh Cart<br>
-            Kochi<br>
-            Kerala, 686582<br>
-            Phone: <a href="tel:9539658310">+91 9539658310</a><br>
-            Email: <a href="mailto:freshcart@gmail.com">freshcart@gmail.com</a>
-        </address>
-    </section>
-    
-    <footer>&copy; Copyright 2024 Fresh Cart. All rights reserved.</footer>
+    <?php include '../footer.php'; ?>
 </body>
 </html>

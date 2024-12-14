@@ -17,9 +17,9 @@ header {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 .container {
-    width: 1300px;
-    margin: 0 auto;
-    padding: 20px;
+    width: 1400px; /* Fixed width for consistency */
+    margin: 10px auto; /* Centering the container */
+    padding: 10px;
 }
 
 .logo img {
@@ -147,3 +147,42 @@ button:hover {
 .logo img {
     width: 150px; /* Adjust logo size if needed */
 }
+
+
+/* About Section */
+.about {
+    width: 1400px; /* Same width as the container */
+    border-radius: 8px 8px 0 0;
+    height: auto;
+    padding: 10px;
+    text-align: center;
+    background-color: #474e5d;
+    color: white;
+}
+
+/* Contact Info Section */
+.contact-info {
+    width: 1400px; /* Same width as the container */
+    padding: 10px;
+    height: auto;
+    text-align: center;
+    padding-bottom: 10px;
+    background-color: #a39f9f;
+}
+
+.contact-info h2 {
+    margin: 10px;
+}
+
+/* Footer */
+footer {
+    width: 1400px;
+        height: auto;
+    border-radius: 0 0 8px 8px;
+    background-color: rgb(32, 31, 31);
+    padding: 10px;
+    text-align: center;
+    font-size: 15px;
+    color: #b8b6b6;
+}
+

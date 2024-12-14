@@ -151,7 +151,8 @@ $conn->close();
         <div class="report-summary">
             <h3>Report Summary</h3>
             <p>Total Sales: <?php echo htmlspecialchars($totalSales); ?></p>
-            <p>Total Amount: $<?php echo number_format($totalAmount, 2); ?></p>
+            <p>Total Amount: &#8377;<?php echo number_format($totalAmount, 2); ?></p>
+
         </div>
         <div class="total-products-sold">
             <h3>Total Products Sold</h3>
@@ -165,7 +166,7 @@ $conn->close();
                     <tr>
                         <td><?php echo htmlspecialchars($product['product_name']); ?></td>
                         <td><?php echo htmlspecialchars($product['total_quantity']); ?></td>
-                        <td>$<?php echo number_format($product['total_amount'], 2); ?></td>
+                        <td>&#8377;<?php echo number_format($product['total_amount'], 2); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>
@@ -177,7 +178,7 @@ $conn->close();
                     <th>Order ID</th>
                     <th>Buyer Name</th>
                     <th>Buyer Name</th>
-                    <th>Product Emaik</th>
+                    <th>Product Name</th>
                     <th>Quantity Sold</th>
                     <th>Total Amount</th>
                     <th>Ordered At</th>
@@ -189,12 +190,13 @@ $conn->close();
                         <td><?php echo htmlspecialchars(string: $product['buyer_username']); ?></td>
                         <td><?php echo htmlspecialchars(string: $product['product_name']); ?></td>
                         <td><?php echo htmlspecialchars($product['quantity']); ?></td>
-                        <td><?php echo htmlspecialchars($product['total_amount']); ?></td>
+                        <td>&#8377;<?php echo htmlspecialchars($product['total_amount']); ?></td>
                         <td><?php echo htmlspecialchars($product['ordered_at']); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>
         </div>
+        <?php include '../footer.php'; ?>
     </div>
 </body>
 </html>

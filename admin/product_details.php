@@ -1,16 +1,15 @@
 <?php
 session_start();
 
-// Check if the buyer is logged in
-if (!isset($_SESSION['buyer_username'])) {
-    header("Location: buyer_login.php");
+// Check if the admin is logged in
+if (!isset($_SESSION['admin_username'])) {
+    header("Location: admin_login.php");
     exit();
 }
-
 include 'C:\xampp\htdocs\Fresh_Cart\db_connection.php'; // Adjust the path as necessary
 
 // Initialize product ID
-$product_id = $_POST['product_id'] ?? ''; // Use GET method to get product ID
+$product_id = $_POST['product_id'] ?? ''; // Use POST method to get product ID
 
 // Check if product ID is provided
 if ($product_id) {
@@ -19,7 +18,7 @@ if ($product_id) {
         SELECT p.product_id, p.product_name, p.price, p.stock_quantity, p.min_quantity, p.image_path, s.seller_name, s.seller_username AS seller_id, p.description
         FROM product_table p
         JOIN seller_table s ON p.seller_id = s.seller_username
-        WHERE p.product_id = ?";
+        WHERE p.product_id = ? AND p.status = 'active'";
     
     $stmt = $conn->prepare($product_query);
     $stmt->bind_param('i', $product_id);
@@ -31,7 +30,7 @@ if ($product_id) {
         $product = $product_result->fetch_assoc();
     } else {
         // Product not found
-        $product = null; // Set product to null if not found
+        $product = null;
     }
     $stmt->close();
 } else {
@@ -47,14 +46,29 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details - Fresh Cart</title>
+    <title>Product Details - Admin View</title>
     <link rel="stylesheet" href="../css/product_detail.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <div class="container">
-        
-    <?php include 'buyer_header.php'; ?>
+        <header>
+            <div class="logo">
+                <a href="admin_home.php">
+                    <img src="../images/logo-no-background.png" width="200px" height="auto" alt="Fresh Cart Logo">
+                </a>
+            </div>
+            <div class="menu">
+                <nav>
+                    <ul>
+                        <li><a href="admin_home.php">Dashboard</a></li>
+                        <li><a href="manage_products.php">Manage Products</a></li>
+                        <li><a href="manage_sellers.php">Manage Sellers</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <button class="logout-btn">Logout</button>
+        </header>
 
         <main class="main">
             <?php if ($product): ?>
@@ -74,34 +88,24 @@ $conn->close();
                             <?php endif; ?>
                         </p>
 
-                        <?php if ($product['stock_quantity'] > 0): ?>
-                            <form action="add_to_cart.php" method="POST" class="add-to-cart-form">
-                                <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
-                                <input type="number" name="quantity" min="1" value="1" required class="quantity-input">
-                                <button type="submit" name="add_to_cart" class="add-to-cart-btn">Add to Cart <i class="fa fa-shopping-cart"></i></button>
-                            </form>
-                            <form action="buy_now.php" method="POST">
-                                <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
-                                <button type="submit" class="buy-btn">Buy Now</button>
-                            </form>
-                        <?php else: ?>
-                            <button class="buy-btn" disabled>Out of Stock</button>
-                        <?php endif; ?>
+                        <form action="delete_product.php" method="POST" class="remove-product-form">
+                            <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product['product_id']); ?>">
+                            <button type="submit" class="remove-product-btn">Remove Product</button>
+                        </form>
 
-                        <form action="view_seller.php" method="POST" class="view-seller-form">
+
+                        <form action="view_seller_products.php" method="POST" class="view-seller-form">
                             <input type="hidden" name="seller_id" value="<?php echo htmlspecialchars($product['seller_id']); ?>">
                             <button type="submit" class="view-seller-btn">View More Products from This Seller</button>
                         </form>
                     </div>
                 </div>
-
             <?php else: ?>
                 <div class="product-detail">
                     <h1>Product Not Found</h1>
                     <p>Sorry, the product you are looking for does not exist.</p>
                 </div>
             <?php endif; ?>
-
             <?php include '../footer.php'; ?>
         </main>
     </div>

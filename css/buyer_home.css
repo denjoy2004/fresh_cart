@@ -123,7 +123,19 @@ header {
 .product-card p {
     margin: 5px 0; /* Space above and below paragraphs */
 }
+.product-card .quantity-input {
+    width: 50px; /* Adjust the width as needed */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: center;
+    font-size: 14px;
+}
 
+.product-card .quantity-input:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
 /* Categories Section */
 .categories {
     margin: 20px 0;
@@ -168,36 +180,40 @@ header {
     transform: scale(1.05);
 }
 
-/* Flex container for buttons */
+/* Flex container for buttons - Stack vertically */
 .button-group {
-    display: flex; /* Align buttons horizontally */
+    display: flex;
     flex-direction: column; /* Stack buttons vertically */
-    align-items: center; /* Center align buttons */
+    align-items: center; /* Center align buttons horizontally */
     gap: 10px; /* Space between the buttons */
     margin-top: 10px; /* Space above the button group */
+    width: 100%; /* Make the buttons fill the available width */
 }
 
-/* Add-to-Cart and Buy buttons */
-.add-to-cart-btn, .buy-btn {
-    background-color: #4CAF50;
+/* Add-to-Cart and View More Details buttons */
+.add-to-cart-btn, .view-details-btn {
+    background-color: #4CAF50; /* Green background */
     border: none;
     color: white;
-    padding: 10px; /* Increased padding for a better touch area */
+    padding: 10px; /* Ample padding for touch */
     text-align: center;
     font-size: 15px;
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s;
-    width: 100%; /* Full width buttons for better responsiveness */
+    width: 230px; /* Make buttons take full width */
 }
 
-.add-to-cart-btn:hover, .buy-btn:hover {
+/* Hover effect for buttons */
+.add-to-cart-btn:hover, .view-details-btn:hover {
     background-color: #45a049; /* Darker green on hover */
 }
 
-.add-to-cart-btn i, .buy-btn i {
+/* Ensure icons are properly spaced */
+.add-to-cart-btn i, .view-details-btn i {
     margin-left: 5px;
 }
+
 
 /* About Section */
 .about {
@@ -235,3 +251,5 @@ footer {
     font-size: 15px;
     color: #b8b6b6;
 }
+
+

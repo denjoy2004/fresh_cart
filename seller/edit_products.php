@@ -6,13 +6,13 @@
         header("Location: seller_login.php");
         exit();
     }
-    
+
     // Include the database connection
     include 'C:\xampp\htdocs\Fresh_Cart\db_connection.php';
-    
+
     // Retrieve the seller username
     $seller_username = $_SESSION['seller_username'];
-    
+
     // Check if the form is submitted for editing a product
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_product'])) {
         // Get the product details from the form
@@ -21,9 +21,10 @@
         $productPrice = isset($_POST['product_price']) ? trim($_POST['product_price']) : null;
         $productStock = isset($_POST['product_stock']) ? trim($_POST['product_stock']) : null;
         $productDescription = isset($_POST['product_description']) ? trim($_POST['product_description']) : null;
+        $min_quantity = isset($_POST['min_quantity']) ? trim($_POST['min_quantity']) : null;
 
         // Check if all required fields are filled
-        if (empty($productName) || empty($productPrice) || empty($productStock) || empty($productDescription)) {
+        if (empty($productName) || empty($productPrice) || empty($productStock) || empty($productDescription) || empty($min_quantity)) {
             echo "Error: All fields are required.";
         } else {
             // Check if a new product image is uploaded
@@ -32,27 +33,27 @@
                 $productImage = $_FILES['product_image']['name'];
                 $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/Fresh_Cart/uploads/";
                 $targetFile = $targetDir . basename($productImage);
-        
+
                 // Move the uploaded file to the target directory
                 if (!move_uploaded_file($_FILES['product_image']['tmp_name'], $targetFile)) {
                     echo "Error uploading image.";
                     exit();
                 }
             }
-        
+
             // Prepare the SQL query for updating the product
             if (!is_null($productImage)) {
                 // Update the product with image
-                $updateQuery = "UPDATE product_table SET product_name=?, price=?, stock_quantity=?, description=?, image_path=? WHERE product_id=?";
+                $updateQuery = "UPDATE product_table SET product_name=?, price=?, stock_quantity=?, description=?, min_quantity=?, image_path=? WHERE product_id=?";
                 $stmt = $conn->prepare($updateQuery);
-                $stmt->bind_param('sdissi', $productName, $productPrice, $productStock, $productDescription, $productImage, $productId);
+                $stmt->bind_param('sdisssi', $productName, $productPrice, $productStock, $productDescription, $min_quantity, $productImage, $productId);
             } else {
                 // Update the product without image
-                $updateQuery = "UPDATE product_table SET product_name=?, price=?, stock_quantity=?, description=? WHERE product_id=?";
+                $updateQuery = "UPDATE product_table SET product_name=?, price=?, stock_quantity=?, description=?, min_quantity=? WHERE product_id=?";
                 $stmt = $conn->prepare($updateQuery);
-                $stmt->bind_param('sdssi', $productName, $productPrice, $productStock, $productDescription, $productId);
+                $stmt->bind_param('sdsssi', $productName, $productPrice, $productStock, $productDescription, $min_quantity, $productId);
             }
-        
+
             // Execute the query and check if the update is successful
             if ($stmt->execute()) {
                 // Redirect to the seller products page
@@ -63,7 +64,7 @@
             }
         }
     }
-    
+
     // Get the product ID from the POST request and fetch product details
     $productId = $_POST['product_id'];
     $productQuery = "SELECT * FROM product_table WHERE product_id = ?";
@@ -73,7 +74,7 @@
     $productResult = $stmt->get_result();
     $product = $productResult->fetch_assoc();
     $stmt->close();
-    
+
     // Close the database connection
     $conn->close();
 ?>
@@ -121,7 +122,7 @@
                 <input type="text" id="product_name" name="product_name" value="<?php echo htmlspecialchars($product['product_name']); ?>" required>
 
                 <!-- Product Price Field -->
-                <label for="product_price">Product Price ($)</label>
+                <label for="product_price">Product Price (&#8377;)</label>
                 <input type="number" step="0.01" id="product_price" name="product_price" value="<?php echo htmlspecialchars($product['price']); ?>" required>
 
                 <!-- Stock Quantity Field -->
@@ -132,6 +133,10 @@
                 <label for="product_description">Product Description</label>
                 <textarea id="product_description" name="product_description" required><?php echo htmlspecialchars($product['description']); ?></textarea>
 
+                <!-- Minimum Quantity Field -->
+                <label for="min_quantity">Minimum Quantity</label>
+                <input type="text" id="min_quantity" name="min_quantity" value="<?php echo htmlspecialchars($product['min_quantity']); ?>" required>
+
                 <!-- Product Image Upload Field -->
                 <label for="product_image">Product Image (Leave blank to keep existing)</label>
                 <input type="file" id="product_image" name="product_image" accept="image/*">
@@ -141,6 +146,7 @@
                 <a href="seller_products.php"><button type="button" class="back-button">Back to Products</button></a>
             </form>
         </div>
+        <?php include '../footer.php'; ?>
     </div>
 </body>
 </html>

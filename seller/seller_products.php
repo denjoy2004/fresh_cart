@@ -48,7 +48,7 @@ if (isset($_POST['search'])) {
 }
 
 // Fetch products for the seller with optional search
-$productsQuery = "SELECT * FROM product_table WHERE seller_id = '$seller_username'";
+$productsQuery = "SELECT * FROM product_table WHERE seller_id = '$seller_username' AND status = 'active'";
 if (!empty($searchTerm)) {
     $searchTerm = $conn->real_escape_string($searchTerm); // Prevent SQL injection
     $productsQuery .= " AND product_name LIKE '%$searchTerm%'";
@@ -67,6 +67,8 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fresh Cart - Seller Products</title>
     <link rel="stylesheet" href="/fresh_cart/css/seller_products.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <script>
         function logout() {
             window.location.href = 'seller_logout.php';  // Redirects to the PHP file
@@ -86,7 +88,7 @@ $conn->close();
                     <ul>
                         <li><a href="seller_home.php">Dashboard</a></li>
                         <li><a href="sales_report.php">Sales Report</a></li>
-                        <li><a href="#">Update Account</a></li>
+                        <li><a href="update_seller_account.php">Update Account</a></li>
                     </ul>
                 </nav>
             </div>
@@ -116,20 +118,19 @@ $conn->close();
                             <img src="/Fresh_Cart/uploads/<?php echo htmlspecialchars($product['image_path']); ?>" alt="Product Image" class="product-image">
                             <div class="text">
                                 <h3><?php echo htmlspecialchars($product['product_name']); ?></h3>
-                                <p>Price: $<?php echo htmlspecialchars($product['price']); ?></p>
+                                <p>Price: &#8377;<?php echo htmlspecialchars($product['price']); ?></p>
                                 <p>Stock: <?php echo htmlspecialchars($product['stock_quantity']); ?></p>
-                            
-                                <!-- Edit Button -->
-                                <form action="edit_products.php" method="POST">
-                                    <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product['product_id']); ?>">
-                                    <button type="submit" class="edit-button">Edit</button>
-                                </form>
-
-                                <!-- Remove Form -->
-                                <form method="POST" style="margin-top: 10px;">
-                                    <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product['product_id']); ?>">
-                                    <button type="submit" class="remove-button" name="remove_product">Remove</button>
-                                </form>
+                                <div class="button-group" >
+                                    <form action="edit_products.php" method="POST">
+                                        <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product['product_id']); ?>">
+                                        <button type="submit" class="edit-button">Edit <i class='fa fa-edit'></i></button>
+                                    </form>
+                                    <form method="POST" style="margin-top: 10px;">
+                                        <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product['product_id']); ?>">
+                                        <button type="submit" class="remove-button" name="remove_product">Remove <i class='fa fa-trash-o'></i></button>
+                                    </form>
+                                </div>
+                                
                             </div>
                         </article>
                     <?php endwhile; ?>
@@ -138,6 +139,7 @@ $conn->close();
                 <?php endif; ?>
             </main>
         </section>
+        <?php include '../footer.php'; ?>
     </div>
 </body>
 </html>

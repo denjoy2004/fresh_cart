@@ -1,163 +1,160 @@
-/* Global Reset */
+/* Reset and global styles */
 body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f9f9f9; /* Light gray background for a fresh look */
+    background-color: #f4f4f4;
     color: #333;
 }
 
-/* Container for overall layout */
+/* Container */
 .container {
-    width: 1400px; /* Fixed width for consistency */
-    margin: 20px auto; /* Centering the container with more space */
-    padding: 10px;
-}
-
-/* Header Styles */
-header {
-    background-color: #4caf50; /* Fresh green background */
-    padding: 15px 30px; /* Ample padding */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Subtle shadow */
-}
-
-.logo {
-    margin-right: auto; /* Push the logo to the left */
-}
-
-.logo img {
-    max-height: 100%;
-}
-
-/* Menu Styles */
-.menu nav ul {
-    padding: 0;
-    list-style: none;
-    display: flex;
-    gap: 20px; /* Add spacing between menu items */
-}
-
-.menu nav ul li {
-    margin: 0;
-    position: relative; /* Needed for dropdown */
-}
-
-.menu nav ul li a {
-    color: white;
-    font-size: 18px; /* Slightly larger text */
-    text-decoration: none;
-    transition: color 0.3s;
-    padding: 10px 15px; /* Add padding for better touch area */
-}
-
-.menu nav ul li a:hover {
-    color: #c8e6c9; /* Light green on hover */
-}
-
-/* Logout Button */
-.logout-btn {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.logout-btn:hover {
-    background-color: #d32f2f;
-}
-
-.main {
+    width: 1400px;
+    margin: 0 auto;
     padding: 20px;
 }
 
+/* Header */
+header {
+    background-color: #4CAF50;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+}
+
+header .logo img {
+    max-height: 80px;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+header nav ul li {
+    display: inline;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+header nav ul li a:hover {
+    color: #e0f2f1;
+}
+
+.logout-btn {
+    background-color: #FF5722;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background-color: #E64A19;
+}
+
+
+/* Main content styling */
+.main {
+    padding-top: 20px;
+}
+
+/* Product detail container */
 .product-detail {
     display: flex;
+    gap: 20px 0;
     margin: 20px 0;
     background-color: #ffffff; /* White background for product details */
     padding: 30px; /* Increased padding for better layout */
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Deeper shadow for depth */
+    margin-top: 20px;
 }
 
 .product-image {
-    width: 350px; /* Increased size for product image */
-    height: auto;
-    margin-right: 30px; /* Increased margin for more space */
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Light shadow around the image */
+    width: 350px;
+    height: 325px;
+    border-radius: 8px;
 }
 
 .product-info {
     max-width: 600px;
+    padding-left: 30px;
 }
 
 .product-info h1 {
-    margin: 0;
-    font-size: 28px; /* Larger title font size */
+    font-size: 24px;
     color: #333;
+    margin-bottom: 10px;
 }
 
-.price, .seller {
-    font-size: 20px; /* Increased font size for price and seller */
+.product-info p {
+    font-size: 16px;
     color: #555;
-    margin: 10px 0; /* Added margin for spacing */
+    margin: 5px 0;
 }
 
-.description {
-    margin: 10px 0;
-    font-size: 18px; /* Slightly larger description font size */
-    color: #777;
+/* Price styling */
+.price {
+    font-size: 20px;
+    color: #28a745;
+    font-weight: bold;
 }
 
-.button-group {
-    margin-top: 20px;
-}
-
-.add-to-cart-btn, .buy-btn {
-    padding: 12px 20px; /* Larger buttons */
-    background-color: #4CAF50;
-    color: white;
+/* Button group styling */
+button {
+    font-size: 16px;
+    padding: 10px 20px;
+    margin-top: 15px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    margin-right: 15px; /* More space between buttons */
-    font-size: 16px; /* Increased button text size */
-    transition: background-color 0.3s, transform 0.2s; /* Added transform for effect */
+    transition: background-color 0.3s;
+}
+.buy-btn{
+    background-color: #2ead1f;
+    color: white;
+}
+.buy-btn:hover{
+    background-color: #2dad1fd9;
+}
+.add-to-cart-btn{
+    background-color: #000000;
+    color: white;
+}
+.add-to-cart-btn:hover{
+    background-color: #000000d3;
+}
+.remove-product-btn {
+    background-color: red;
+    color: white;
+}
+.remove-product-btn:hover {
+    background-color: #c9302c;
 }
 
-.add-to-cart-btn:hover, .buy-btn:hover {
-    background-color: #45a049;
-    transform: scale(1.05); /* Scale effect on hover */
-}
+/* View Seller Button */
 .view-seller-btn {
-    padding: 10px 20px; /* Padding for the button */
-    background-color: #007BFF; /* Blue background */
-    color: white; /* White text color */
-    border: none; /* Remove border */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Smooth transition for hover effect */
+    background-color: #0275d8;
+    color: white;
+    margin-left: 10px; /* Adds space between buttons */
 }
 
 .view-seller-btn:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #025aa5;
 }
 
-
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #333;
-    color: white;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    margin-top: 20px; /* Space above footer */
+/* Flex container to align buttons */
+.remove-product-form, .view-seller-form, .purchase-form {
+    display: inline-block; /* Keep forms inline */
 }

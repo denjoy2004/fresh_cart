@@ -141,6 +141,7 @@ $conn->close();
                 <a href="seller_home.php"><button type="button" class="back-button">Back to Home</button></a>
             </form>
         </div>
+        <?php include '../footer.php'; ?>
     </div>
 </body>
 </html>

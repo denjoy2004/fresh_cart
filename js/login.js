@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     url = 'seller/seller_login.php';
                     break;
                 case 'admin':
-                    url = 'admin.html';
+                    url = 'admin/admin_login.php';
                     break;
                 default:
                     break;
