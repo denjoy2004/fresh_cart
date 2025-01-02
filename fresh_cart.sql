@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 15, 2024 at 05:09 PM
+-- Generation Time: Jan 02, 2025 at 06:07 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -39,7 +39,8 @@ CREATE TABLE `admin_table` (
 --
 
 INSERT INTO `admin_table` (`admin_name`, `admin_username`, `admin_mbno`, `admin_password`) VALUES
-('testname', 'testadmin@gmail.com', '1234567890', '12');
+('Adarsh S Kumar', 'adarsgskumar@gmail.com', '8590399437', 'adarsg123'),
+('Den Joy', 'denjoykunnini@gmail.com', '9539658310', 'den123');
 
 -- --------------------------------------------------------
 
@@ -56,23 +57,27 @@ CREATE TABLE `buyer_table` (
   `buyer_area` varchar(15) NOT NULL,
   `buyer_city` varchar(15) NOT NULL,
   `buyer_state` varchar(15) NOT NULL,
-  `buyer_pincode` varchar(6) NOT NULL
+  `buyer_pincode` varchar(6) NOT NULL,
+  `status` enum('active','removed') DEFAULT 'active'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `buyer_table`
 --
 
-INSERT INTO `buyer_table` (`buyer_name`, `buyer_mbno`, `buyer_username`, `buyer_password`, `buyer_house_name`, `buyer_area`, `buyer_city`, `buyer_state`, `buyer_pincode`) VALUES
-('adrash', '1234567890', 'adrash1@gmail.com', '$2y$10$bgKWt5XKswPV2xK2fMWsr.0nPg5WF5yB/6RHoqwsNwQ', 'adrashhouse', 'konni', 'pathanamthitta', 'kerala', '123456'),
-('adrash', '1234567890', 'adrash2@gmail.com', '$2y$10$rFuD0CDt5RmsiJ8SVsoEquWjEtPAn0c.QU54r.1AAj3', 'adrashhouse', 'konni', 'pathanamthitta', 'kerala', '123456'),
-('adrash', '1234567890', 'adrash3@gmail.com', '$2y$10$Yxy7qEoDQJiHWLOefCL7RuKApyvYPJGF4MhMstTnIBG', 'adrashhouse', 'konni', 'pathanamthitta', 'kerala', '123456'),
-('adrash', '1234567890', 'adrash4@gmail.com', '$2y$10$GVAwebOyk6TTjhucenri4.p1rmE3YbSA3mOH.jpGq7p', 'adrashhouse', 'konni', 'pathanamthitta', 'kerala', '123456'),
-('adrash', '1234567890', 'adrash5@gmail.com', '12', 'adrashhouse', 'konni', 'pathanamthitta', 'kerala', '123456'),
-('adrash', '1234567890', 'adrash6@gmail.com', '12', 'adrashhouse', 'konni', 'pathanamthitta', 'kerala', '123456'),
-('adrash', '1234567890', 'adrash@gmail.com', '$2y$10$LNx/Ul1sBxxgVU7QtUPfZuYMHyaj7yLmnK7D6wOCfIF', 'adrashhouse', 'konni', 'pathanamthitta', 'kerala', '123456'),
-('den', '9539658310', 'sdd@gmail.com', '$2y$10$CXF.WcVHifOnCkOMX2uv6OLTyH7oCygMQ5msJIyV/Bf', 'de', 'ede', 'ee3e', '3e', '152'),
-('test test', '1234567890', 'test@gmail.com', '12', 'testh', 'testa', 'testc', 'testss', '123456');
+INSERT INTO `buyer_table` (`buyer_name`, `buyer_mbno`, `buyer_username`, `buyer_password`, `buyer_house_name`, `buyer_area`, `buyer_city`, `buyer_state`, `buyer_pincode`, `status`) VALUES
+('Anoop Kumar', '9876543210', 'anoop.kumar@example.com', 'password123', 'Green Villa', 'Poojappura', 'Thiruvananthapu', 'Kerala', '695012', 'active'),
+('Arya S', '9567112233', 'arya.s@example.com', 'password123', 'Blue Hills', 'Feroke', 'Kozhikode', 'Kerala', '673631', 'active'),
+('Bince Benny', '6238133610', 'binzbenny@gmail.com', 'binz123', 'Thekkekara', 'Chemmalamattam', 'Kottayam', 'kerala', '688845', 'active'),
+('Devika R', '9845126789', 'devika.r@example.com', 'password123', 'Ocean View', 'Palarivattom', 'Kochi', 'Kerala', '682025', 'active'),
+('Kiran Jose', '9745123456', 'kiran.jose@example.com', 'password123', 'St. Mary’s', 'Mananchira', 'Kozhikode', 'Kerala', '673001', 'active'),
+('Lekshmi Menon', '9561234567', 'lekshmi.menon@example.com', 'password123', 'Rose Cottage', 'Kadavanthra', 'Kochi', 'Kerala', '682020', 'active'),
+('Meera Nair', '9447123456', 'meera.nair@example.com', 'password123', 'Lakshmi Bhavan', 'Kowdiar', 'Thiruvananthapu', 'Kerala', '695003', 'active'),
+('Nandana P', '9446547890', 'nandana.p@example.com', 'password123', 'Harmony House', 'Palayam', 'Thrissur', 'Kerala', '680001', 'active'),
+('Rahul Krishna', '9870012345', 'rahul.krishna@example.com', 'password123', 'Krishna Bhavan', 'Mavoor', 'Kozhikode', 'Kerala', '673661', 'active'),
+('Sreejith K', '9496234512', 'sreejith.k@example.com', 'password123', 'Golden Nest', 'East Fort', 'Thrissur', 'Kerala', '680005', 'active'),
+('test test', '1234567890', 'test@gmail.com', '12', 'testh', 'testa', 'testc', 'testss', '123456', 'removed'),
+('Vishnu Raj', '9998765432', 'vishnu.raj@example.com', 'password123', 'Sunrise Villa', 'Kaloor', 'Kochi', 'Kerala', '682017', 'active');
 
 -- --------------------------------------------------------
 
@@ -134,7 +139,11 @@ INSERT INTO `order_items_table` (`order_item_id`, `order_id`, `product_id`, `sel
 (46, 41, 18, 'test2@gmail.com', 'test@gmail.com', 1, 80.00, 'pending', '2024-11-27 09:14:16', '2024-11-27 09:14:16'),
 (47, 41, 18, 'test2@gmail.com', 'test@gmail.com', 1, 80.00, 'pending', '2024-11-27 09:14:16', '2024-11-27 09:14:16'),
 (48, 42, 21, 'test2@gmail.com', 'test@gmail.com', 10, 8.00, 'pending', '2024-11-27 09:35:29', '2024-11-27 09:35:29'),
-(49, 43, 21, 'test2@gmail.com', 'test@gmail.com', 2, 16.00, 'pending', '2024-12-14 09:55:24', '2024-12-14 09:55:24');
+(49, 43, 21, 'test2@gmail.com', 'test@gmail.com', 2, 16.00, 'pending', '2024-12-14 09:55:24', '2024-12-14 09:55:24'),
+(50, 44, 33, 'santhosh@gmail.com', 'binzbenny@gmail.com', 2, 400.00, 'pending', '2024-12-17 09:51:55', '2024-12-17 09:51:55'),
+(51, 45, 32, 'santhosh@gmail.com', 'binzbenny@gmail.com', 3, 240.00, 'pending', '2024-12-17 15:44:31', '2024-12-17 15:44:31'),
+(52, 45, 30, 'santhosh@gmail.com', 'binzbenny@gmail.com', 2, 100.00, 'pending', '2024-12-17 15:44:31', '2024-12-17 15:44:31'),
+(53, 46, 33, 'santhosh@gmail.com', 'binzbenny@gmail.com', 2, 400.00, 'pending', '2024-12-18 06:43:20', '2024-12-18 06:43:20');
 
 -- --------------------------------------------------------
 
@@ -168,7 +177,10 @@ INSERT INTO `order_table` (`order_id`, `buyer_id`, `total_amount`, `order_status
 (40, 'test@gmail.com', 80.00, 'pending', '', '2024-11-27 09:07:47', '2024-11-27 09:07:47'),
 (41, 'test@gmail.com', 160.00, 'pending', '', '2024-11-27 09:14:16', '2024-11-27 09:14:16'),
 (42, 'test@gmail.com', 80.00, 'pending', '', '2024-11-27 09:35:29', '2024-11-27 09:35:29'),
-(43, 'test@gmail.com', 16.00, 'pending', 'upi', '2024-12-14 09:55:24', '2024-12-14 09:55:24');
+(43, 'test@gmail.com', 16.00, 'pending', 'upi', '2024-12-14 09:55:24', '2024-12-14 09:55:24'),
+(44, 'binzbenny@gmail.com', 400.00, 'pending', 'upi', '2024-12-17 09:51:55', '2024-12-17 09:51:55'),
+(45, 'binzbenny@gmail.com', 340.00, 'cancelled', '', '2024-12-17 15:44:31', '2024-12-18 06:43:37'),
+(46, 'binzbenny@gmail.com', 400.00, 'pending', '', '2024-12-18 06:43:20', '2024-12-18 06:43:20');
 
 -- --------------------------------------------------------
 
@@ -195,15 +207,22 @@ CREATE TABLE `product_table` (
 --
 
 INSERT INTO `product_table` (`product_id`, `seller_Id`, `product_name`, `description`, `min_quantity`, `price`, `stock_quantity`, `image_path`, `product_added_at`, `updated_at`, `status`) VALUES
-(16, 'test2@gmail.com', 'Apple', 'Fresh organic apples', '1 kg', '120', '96', 'apple.jpg', '2024-10-06 17:01:04', '2024-11-01 15:51:00', 'active'),
-(17, 'test2@gmail.com', 'Orange', 'Sweet and juicy oranges', '1 kg', '150', '147', 'orange.jpg', '2024-10-06 17:01:04', '2024-11-12 05:21:48', 'active'),
-(18, 'test2@gmail.com', 'Grape', 'Fresh grapes from the vineyard', '1 kg', '80', '17', 'grape.jpg', '2024-10-06 17:01:04', '2024-11-12 05:21:54', 'active'),
-(19, 'test2@gmail.com', 'Cheese', 'Creamy homemade cheese', '', '700', '0', 'cheese.jpg', '2024-10-06 17:01:04', '2024-11-12 05:21:57', 'active'),
-(20, 'test2@gmail.com', 'Beef', 'Grass-fed beef cuts', '', '10.00', '46', 'beef.jpg', '2024-10-06 17:01:04', '2024-11-12 05:22:02', 'active'),
-(21, 'test2@gmail.com', 'Chicken', 'Organic free-range chicken', '1 kg', '8', '88', 'chicken.jpg', '2024-10-06 17:01:04', '2024-12-14 09:55:24', 'active'),
-(22, 'test2@gmail.com', 'Wine', 'Premium red wine', '', '15.00', '30', 'wine.jpg', '2024-10-06 17:01:04', '2024-10-12 10:02:38', 'active'),
-(23, 'test2@gmail.com', 'Cinnamon', 'Ground cinnamon spice', '', '5.00', '59', 'cinnamon.jpg', '2024-10-06 17:03:46', '2024-11-01 15:51:00', 'active'),
-(28, 'test2@gmail.com', 'Orange', 'Sweet and juicy oranges', '', '10.00', '150', 'orange.jpg', '2024-10-06 17:01:04', '2024-11-12 03:50:02', 'removed');
+(16, 'test2@gmail.com', 'Apple', 'Fresh organic apples', '1 kg', '120', '96', 'apple.jpg', '2024-10-06 17:01:04', '2024-12-17 05:44:11', 'removed'),
+(17, 'test2@gmail.com', 'Orange', 'Sweet and juicy oranges', '1 kg', '150', '147', 'orange.jpg', '2024-10-06 17:01:04', '2024-12-17 05:44:11', 'removed'),
+(18, 'test2@gmail.com', 'Grape', 'Fresh grapes from the vineyard', '1 kg', '80', '17', 'grape.jpg', '2024-10-06 17:01:04', '2024-12-17 05:44:11', 'removed'),
+(19, 'test2@gmail.com', 'Cheese', 'Creamy homemade cheese', '', '700', '0', 'cheese.jpg', '2024-10-06 17:01:04', '2024-12-17 05:44:11', 'removed'),
+(20, 'test2@gmail.com', 'Beef', 'Grass-fed beef cuts', '', '10.00', '46', 'beef.jpg', '2024-10-06 17:01:04', '2024-12-17 05:44:11', 'removed'),
+(21, 'test2@gmail.com', 'Chicken', 'Organic free-range chicken', '1 kg', '8', '88', 'chicken.jpg', '2024-10-06 17:01:04', '2024-12-17 05:44:11', 'removed'),
+(22, 'test2@gmail.com', 'Wine', 'Premium red wine', '', '15.00', '30', 'wine.jpg', '2024-10-06 17:01:04', '2024-12-17 05:44:11', 'removed'),
+(23, 'test2@gmail.com', 'Cinnamon', 'Ground cinnamon spice', '', '5.00', '59', 'cinnamon.jpg', '2024-10-06 17:03:46', '2024-12-17 05:44:11', 'removed'),
+(28, 'test2@gmail.com', 'Orange', 'Sweet and juicy oranges', '', '10.00', '150', 'orange.jpg', '2024-10-06 17:01:04', '2024-11-12 03:50:02', 'removed'),
+(30, 'santhosh@gmail.com', 'Redchilly', 'Fresh and spicy redchillies', '250 gm', '50', '98', 'redchilly.jpg', '2024-12-17 09:40:13', '2024-12-17 15:44:31', 'active'),
+(31, 'santhosh@gmail.com', 'Mushroom', 'Fresh mushrooms for cooking', '500 gm', '120', '100', 'mushroom.jpg', '2024-12-17 09:40:13', '2024-12-17 09:41:14', 'active'),
+(32, 'santhosh@gmail.com', 'Carrot', 'Fresh, organic carrots', '1 kg', '80', '97', 'carrot.jpg', '2024-12-17 09:40:13', '2024-12-17 15:44:31', 'active'),
+(33, 'santhosh@gmail.com', 'Blackberry', 'Sweet and juicy blackberries', '500 gm', '200', '96', 'blackberry.jpg', '2024-12-17 09:40:13', '2024-12-18 06:43:20', 'active'),
+(34, 'santhosh@gmail.com', 'Banana', 'Fresh bananas from Kerala', '1 kg', '80', '100', 'banana.jpg', '2024-12-17 09:40:13', '2024-12-17 09:41:34', 'active'),
+(35, 'santhosh@gmail.com', 'Strawberry', 'Fresh strawberries', '500 gm', '250', '100', 'strawberry.jpg', '2024-12-17 09:40:13', '2024-12-17 09:41:40', 'active'),
+(36, 'santhosh@gmail.com', 'Tomato', 'Fresh tomatoes for cooking', '500 gm', '60', '100', 'tomato.jpg', '2024-12-17 09:40:13', '2024-12-17 09:41:45', 'active');
 
 -- --------------------------------------------------------
 
@@ -215,21 +234,32 @@ CREATE TABLE `seller_table` (
   `seller_name` varchar(50) NOT NULL,
   `seller_username` varchar(50) NOT NULL,
   `seller_mbno` varchar(10) NOT NULL,
-  `seller_password` varchar(10) NOT NULL,
+  `seller_password` varchar(255) NOT NULL,
   `business_name` varchar(50) NOT NULL,
   `seller_area` varchar(15) NOT NULL,
   `seller_city` varchar(15) NOT NULL,
   `seller_state` varchar(15) NOT NULL,
-  `seller_pincode` varchar(6) NOT NULL
+  `seller_pincode` varchar(6) NOT NULL,
+  `status` enum('active','removed') DEFAULT 'active'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `seller_table`
 --
 
-INSERT INTO `seller_table` (`seller_name`, `seller_username`, `seller_mbno`, `seller_password`, `business_name`, `seller_area`, `seller_city`, `seller_state`, `seller_pincode`) VALUES
-('test', 'test0212@gmail.com', '1234567890', '12', 'abced', 'dwdc', 'vfgv', 'fv', '123456'),
-('test2', 'test2@gmail.com', '55656', '12', 'test2', 'fefn', 'kfjrnfj', 'enfnjkrjknf', '123456');
+INSERT INTO `seller_table` (`seller_name`, `seller_username`, `seller_mbno`, `seller_password`, `business_name`, `seller_area`, `seller_city`, `seller_state`, `seller_pincode`, `status`) VALUES
+('Arya S', 'arya.s@example.com', '9567112233', 'password12', 'Arya Farms', 'Feroke', 'Kozhikode', 'Kerala', '673631', 'active'),
+('Devika R', 'devika.r@example.com', '9845126789', 'password12', 'Devika Vegetables', 'Palarivattom', 'Kochi', 'Kerala', '682025', 'active'),
+('Kiran Jose', 'kiran.jose@example.com', '9745123456', 'password12', 'Kiran Fruits', 'Mananchira', 'Kozhikode', 'Kerala', '673001', 'active'),
+('Lekshmi Menon', 'lekshmi.menon@example.com', '9561234567', 'password12', 'Lekshmi Dairy', 'Kadavanthra', 'Kochi', 'Kerala', '682020', 'active'),
+('Maya Nair', 'maya.nair@example.com', '9447123456', 'password12', 'Maya Spices', 'Kowdiar', 'Thiruvananthapu', 'Kerala', '695003', 'active'),
+('Nandana P', 'nandana.p@example.com', '9446547890', 'password12', 'Nandana Grocery', 'Palayam', 'Thrissur', 'Kerala', '680001', 'active'),
+('Rahul Krishna', 'rahul.krishna@example.com', '9870012345', 'password12', 'Krishna Fruits', 'Mavoor', 'Kozhikode', 'Kerala', '673661', 'active'),
+('Ravi Kumar', 'ravi.kumar@example.com', '9876543210', 'password12', 'Ravi Agro', 'Poojappura', 'Thiruvananthapu', 'Kerala', '695012', 'active'),
+('Santhosh Kumar', 'santhosh@gmail.com', '8111965831', 'santhosh123', 'Ajay Stores', 'Konni', 'Patthanamthitta', 'Kerala', '689692', 'active'),
+('Sreejith K', 'sreejith.k@example.com', '9496234512', 'password12', 'Sreejith Enterprises', 'East Fort', 'Thrissur', 'Kerala', '680005', 'active'),
+('test2', 'test2@gmail.com', '55656', '12', 'test2', 'fefn', 'kfjrnfj', 'enfnjkrjknf', '123456', 'removed'),
+('Vijay Raj', 'vijay.raj@example.com', '9998765432', 'password12', 'Vijay Vegetables', 'Kaloor', 'Kochi', 'Kerala', '682017', 'active');
 
 --
 -- Indexes for dumped tables
@@ -293,25 +323,25 @@ ALTER TABLE `seller_table`
 -- AUTO_INCREMENT for table `cart_table`
 --
 ALTER TABLE `cart_table`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `order_items_table`
 --
 ALTER TABLE `order_items_table`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `order_table`
 --
 ALTER TABLE `order_table`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `product_table`
 --
 ALTER TABLE `product_table`
-  MODIFY `product_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `product_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- Constraints for dumped tables
