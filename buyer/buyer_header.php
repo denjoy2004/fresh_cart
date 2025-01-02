@@ -15,7 +15,7 @@ if (!isset($_SESSION['buyer_username'])) {
 $buyer_name = $_SESSION['buyer_name'];
 ?>
 <!-- Font Awesome Kit for Icons -->
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <link rel="stylesheet" href="../css/header.css">
 
 <header>

@@ -80,6 +80,7 @@ mysqli_close($conn);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fresh Cart - Buyer Sign Up</title>
     <link rel="stylesheet" href="../login/signup.css">
+    <script src="..js/login.js"></script>
     <style>
         .error-message {
             color: red;
@@ -88,20 +89,6 @@ mysqli_close($conn);
             margin-right: 120px;
         }
     </style>
-    <script>
-        function validate_signup() {
-            const password = document.getElementById("buyer_password").value;
-            const confirmPassword = document.getElementById("buyer_password_confirm").value;
-
-            // Check if passwords match
-            if (password !== confirmPassword) {
-                alert("Passwords do not match!");
-                return false; // Prevent form submission
-            }
-
-            return true; // Allow form submission
-        }
-    </script>
 </head>
 <body>
     <div class="container">    
@@ -118,7 +105,7 @@ mysqli_close($conn);
     <div class="signup">
         <h2>Sign Up</h2>
         <div class="personal_details">
-            <form name="user_signup" action="buyer_signup.php" method="post" onsubmit="return validate_signup()">
+            <form name="user_signup" action="buyer_signup.php" method="post" onsubmit="return validate_buyer_signup()">
                 <div class="input-field">
                     <input type="text" id="buyer_name" name="buyer_name" placeholder="Name" required>
                 </div>

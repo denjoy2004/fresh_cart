@@ -7,8 +7,7 @@ if (!isset($_SESSION['buyer_username'])) {
     exit();
 }
 
-// Include database connection
-include 'C:\xampp\htdocs\Fresh_Cart\db_connection.php'; // Adjust the path if necessary
+include 'C:\xampp\htdocs\Fresh_Cart\db_connection.php'; 
 
 // Handle Add to Cart functionality
 if (isset($_POST['add_to_cart'])) {
@@ -22,13 +21,13 @@ if (isset($_POST['add_to_cart'])) {
 
     // Check if product is already in the cart
     if (isset($_SESSION['cart'][$product_id])) {
-        $_SESSION['cart'][$product_id] += $quantity; // Increase quantity
+        $_SESSION['cart'][$product_id] += $quantity; 
     } else {
-        $_SESSION['cart'][$product_id] = $quantity; // Add new product
+        $_SESSION['cart'][$product_id] = $quantity; 
     }
 
     // Redirect to the same page to avoid resubmission
-    header("Location: buyer_home.php"); // Updated to point back to the home page
+    header("Location: buyer_home.php"); 
     exit();
 }
 
@@ -38,17 +37,15 @@ $most_sold_query = "
            COUNT(oi.order_item_id) AS order_count
     FROM product_table p
     LEFT JOIN order_items_table oi ON p.product_id = oi.product_id
+    WHERE p.status = 'active'
     GROUP BY p.product_id
     ORDER BY order_count DESC
     LIMIT 5;";
 
 $most_sold_result = $conn->query($most_sold_query);
-
-// Fetch promotions and testimonials (if needed)
 $promotions = ["20% off on all fruits!", "Buy 2 get 1 free on vegetables!"]; // Example promotions
 $testimonials = ["Great service!", "Loved the fresh produce!"]; // Example testimonials
 
-// Close the connection after querying
 $conn->close();
 ?>
 

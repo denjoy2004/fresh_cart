@@ -11,7 +11,7 @@ if (!isset($_SESSION['admin_username'])) {
 include 'C:\xampp\htdocs\Fresh_Cart\db_connection.php'; // Adjust the path as necessary
 
 // Initialize seller ID
-$seller_id = $_POST['seller_id'] ?? ''; // Use POST method to get seller ID
+$seller_id = $_POST['seller_username'] ?? ''; // Use POST method to get seller ID
 
 // Check if seller ID is provided
 if ($seller_id) {

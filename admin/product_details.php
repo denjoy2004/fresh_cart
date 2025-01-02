@@ -95,7 +95,7 @@ $conn->close();
 
 
                         <form action="view_seller_products.php" method="POST" class="view-seller-form">
-                            <input type="hidden" name="seller_id" value="<?php echo htmlspecialchars($product['seller_id']); ?>">
+                            <input type="hidden" name="seller_username" value="<?php echo htmlspecialchars($product['seller_id']); ?>">
                             <button type="submit" class="view-seller-btn">View More Products from This Seller</button>
                         </form>
                     </div>

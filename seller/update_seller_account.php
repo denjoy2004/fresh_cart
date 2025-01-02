@@ -74,21 +74,8 @@ $conn->close();
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="logo">
-                <img src="/fresh_cart/images/logo.png" alt="Fresh Cart Logo">
-            </div>
-            <div class="menu">
-                <nav>
-                    <ul>
-                        <li><a href="seller_home.php">Home</a></li>
-                        <li><a href="seller_products.php">My Products</a></li>
-                        <li><a href="sales_report.php">Sales Report</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <button class="logout-btn" onclick="window.location.href='seller_logout.php'">Logout</button>
-        </header>
+    <?php include 'seller_header.php'; ?>
+
         
         <div class="form-container">
             <h2>Update Account Information</h2>

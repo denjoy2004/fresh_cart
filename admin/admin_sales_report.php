@@ -175,9 +175,10 @@ $conn->close();
 </head>
 <body>
     <div class="container">
-        <header>
+    <?php include 'admin_header.php'; ?>
+
             <h1>Admin Sales Report</h1>
-        </header>
+       
         
         <form class="date-form" action="" method="POST">
             <label for="start_date">Start Date:</label>

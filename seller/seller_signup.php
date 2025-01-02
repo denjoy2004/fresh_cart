@@ -83,8 +83,8 @@ mysqli_close($conn);
             margin-right: 120px;
         }
     </style>
-    <script src="/login/login.js"></script>
-</head>
+    <script src="..js/login.js"></script>
+    </head>
 <body>
     <div class="container">    
         <header>
@@ -100,7 +100,7 @@ mysqli_close($conn);
     <div class="signup">
         <h2>Seller Sign Up</h2>
         <div class="seller_details">
-            <form name="seller_signup" action="seller_signup.php" method="post" onsubmit="return validate_signup()">
+            <form name="seller_signup" action="seller_signup.php" method="post" onsubmit="return validate_seller_signup()">
                 <div class="input-field">
                     <input type="text" id="seller-name" name="seller-name" placeholder="Seller Name" required>
                 </div>

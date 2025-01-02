@@ -52,7 +52,7 @@ $product_query = "
     SELECT p.product_id, p.product_name, p.price, p.stock_quantity, p.description, p.min_quantity, p.image_path, s.seller_name
     FROM product_table p
     JOIN seller_table s ON p.seller_id = s.seller_username
-    WHERE p.product_name LIKE '%$search_keyword%' OR s.seller_name LIKE '%$search_keyword%' AND p.status = 'active'";
+    WHERE (p.product_name LIKE '%$search_keyword%' OR s.seller_name LIKE '%$search_keyword%') AND p.status = 'active'";
 
 // Append sorting logic to the query
 if ($sort_option === 'price-low-to-high') {
@@ -88,61 +88,34 @@ $conn->close();
                     </select>
                     <input type="hidden" name="search" value="<?php echo htmlspecialchars($search_keyword); ?>">
                 </form>
-                <form name="search-bar" action="products_list.php" method="POST" class="search-form">
-                <input type="text" name="search" placeholder="Search products..." value="<?php echo htmlspecialchars($search_keyword); ?>">
-                <button type="submit"><i class="fa fa-search"></i></button>
-            </form>
+                <form name="search-bar" action="products_list.php" method="POST" class ```php
+                ="search-form">
+                    <input type="text" name="search" placeholder="Search products..." value="<?php echo htmlspecialchars($search_keyword); ?>">
+                    <button type="submit">Search</button>
+                </form>
             </div>
 
-            <section class="product-list">
-                <div class="product-grid">
-                    <?php if ($product_result->num_rows > 0): ?>
-                        <?php while ($row = $product_result->fetch_assoc()): ?>
-                            <div class="product-card">
-                                <img src="../uploads/<?php echo $row['image_path']; ?>" alt="<?php echo $row['product_name']; ?>">
-                                <h3><?php echo $row['product_name']; ?></h3>
-                                <p><?php echo htmlspecialchars($row['description']); ?></p>
-                                <p>Minimum Quantity: <?php echo htmlspecialchars($row['min_quantity']); ?></p>
-                                <p>Price:  &#8377;<?php echo number_format($row['price'], 2); ?></p>
-                                <p class="stock">
-                                    <?php if ($row['stock_quantity'] > 0): ?>
-                                        <span style="color: green;">In Stock</span>
-                                        <div class="button-group">
-                                            <form action="product_detail.php" method="POST" class="view-details-form">
-                                                <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>">
-                                                <button type="submit" class="view-details-btn">View Details</button>
-                                            </form>
-                                            <form action="add_to_cart.php" method="POST" class="add-to-cart-form">
-                                                <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>">
-                                                <input type="number" name="quantity" min="1" value="1" required class="quantity-input">
-                                                <button type="submit" name="add_to_cart" class="add-to-cart-btn">Add to Cart <i class="fa fa-shopping-cart"></i></button>
-                                            </form>
-                                        </div>
-                                    <?php else: ?>
-                                        <span style="color: red;">Out of Stock</span>
-                                        <div class="button-group">
-                                            <form action="product_detail.php" method="POST" class="view-details-form">
-                                                <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>">
-                                                <button type="submit" class="view-details-btn">View Details</button>
-                                            </form>
-                                            <form class="add-to-cart-form">
-                                                <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>">
-                                                <input type="number" name="quantity" min="1" value="1" required class="quantity-input">
-                                                <button type="submit" name="add_to_cart" onclick="alert('Product is out of stock and cannot be added to cart')" class="add-to-cart-btn">Add to Cart <i class="fa fa-shopping-cart"></i></button>
-                                            </form>
-                                        </div>
-                                    <?php endif; ?>
-                                </p>
-                            </div>
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <p>No products found.</p>
-                    <?php endif; ?>
-                </div>
-            </section>
-
-            <?php include '../footer.php'; ?>
-
+            <div class="product-list">
+                <?php if ($product_result->num_rows > 0): ?>
+                    <?php while ($product = $product_result->fetch_assoc()): ?>
+                        <div class="product-item">
+                            <img src="<?php echo htmlspecialchars($product['image_path']); ?>" alt="<?php echo htmlspecialchars($product['product_name']); ?>">
+                            <h3><?php echo htmlspecialchars($product['product_name']); ?></h3>
+                            <p>Seller: <?php echo htmlspecialchars($product['seller_name']); ?></p>
+                            <p>Price: $<?php echo number_format($product['price'], 2); ?></p>
+                            <p>Available Stock: <?php echo htmlspecialchars($product['stock_quantity']); ?></p>
+                            <p><?php echo htmlspecialchars($product['description']); ?></p>
+                            <form action="products_list.php" method="POST">
+                                <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product['product_id']); ?>">
+                                <input type="number" name="quantity" min="1" max="<?php echo htmlspecialchars($product['stock_quantity']); ?>" value="1">
+                                <button type="submit" name="add_to_cart">Add to Cart</button>
+                            </form>
+                        </div>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p>No products found.</p>
+                <?php endif; ?>
+            </div>
         </main>
     </div>
 </body>

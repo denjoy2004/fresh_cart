@@ -82,26 +82,7 @@ $stmt->close();
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="logo">
-                <a href="admin_home.php">
-                    <img src="../images/logo-no-background.png" width="200px" height="auto" alt="Fresh Cart Logo">
-                </a>
-            </div>
-            <div class="menu">
-                <nav>
-                <ul>
-                        <li><a href="manage_products.php">Manage Products</a></li>
-                        <li><a href="manage_buyers.php">Manage Buyers</a></li>
-                        <li><a href="manage_sellers.php">Manage Sellers</a></li>
-                        <li><a href="manage_orders.php">Manage Orders</a></li>
-                        <li><a href="reports.php">Reports</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <a href="admin_logout.php"><button class="logout-btn">Logout</button></a>
-        </header>
-
+    <?php include 'admin_header.php'; ?>
         <main>
             <div class="sort-container">
                 

@@ -88,23 +88,7 @@ $conn->close();
 </head>
 <body>
     <div class="container">
-    <header>
-            <div class="logo">
-                <a href="seller_home.php">
-                    <img src="/fresh_cart/images/logo-no-background.png" width="200px" height="auto" alt="Fresh Cart Logo">
-                </a>
-            </div>
-            <div class="menu">
-                <nav>
-                    <ul>
-                        <li><a href="seller_home.php">Dashboard</a></li>
-                        <li><a href="sales_report.php">Sales Report</a></li>
-                        <li><a href="#">Update Account</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <button class="logout-btn" onclick="logout()">Logout</button>
-        </header>
+    <?php include 'seller_header.php'; ?>
         <div class="form-container">
             <h2>Add New Product</h2>
             <form method="POST" enctype="multipart/form-data">

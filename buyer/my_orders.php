@@ -34,7 +34,7 @@ $order_result = $order_stmt->get_result();
 <body>
     <div class="container">
         
-        <?php include 'buyer_header.php'; ?>
+    <?php include 'buyer_header.php'; ?>
 
         <div class="orders-container">
             <h1>My Orders</h1>

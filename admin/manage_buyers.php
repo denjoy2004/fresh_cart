@@ -7,24 +7,36 @@ if (!isset($_SESSION['admin_username'])) {
     exit();
 }
 
-include 'C:\xampp\htdocs\Fresh_Cart\db_connection.php'; // Adjust the path as necessary
+include '../db_connection.php'; // Adjust the path as necessary
 
-// Fetch all buyers
-$buyer_query = "SELECT  buyer_username, buyer_name, buyer_mbno, buyer_house_name, buyer_area, buyer_city, buyer_state, buyer_pincode FROM buyer_table";
+// Fetch all active buyers
+$buyer_query = "SELECT buyer_username, buyer_name, buyer_mbno, buyer_house_name, buyer_area, buyer_city, buyer_state, buyer_pincode, status FROM buyer_table WHERE status = 'active'";
 $buyers_result = $conn->query($buyer_query);
 
-// Handle account removal (deletion)
-if (isset($_POST['action']) && $_POST['action'] === 'delete') {
-    $buyer_username = $_POST['buyer_username'];
+// Handle account removal (marking as removed)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete') {
+    if (!empty($_POST['buyer_username'])) {
+        $buyer_username = $_POST['buyer_username'];
 
-    // Delete the buyer account from the table
-    $delete_query = "DELETE FROM buyer_table WHERE buyer_username = ?";
-    $stmt = $conn->prepare($delete_query);
-    $stmt->bind_param('s', $buyer_username);  // Use 's' for string binding
-    $stmt->execute();
-    $stmt->close();
-
-    // Redirect to refresh the page after deletion
+        // Update the buyer's status to 'removed'
+        $update_query = "UPDATE buyer_table SET status = 'removed' WHERE buyer_username = ?";
+        $stmt = $conn->prepare($update_query);
+        if ($stmt) {
+            $stmt->bind_param('s', $buyer_username);
+            if ($stmt->execute()) {
+                // Successful update
+                $_SESSION['success_message'] = "Buyer account removed successfully.";
+            } else {
+                $_SESSION['error_message'] = "Failed to remove the buyer account.";
+            }
+            $stmt->close();
+        } else {
+            $_SESSION['error_message'] = "Failed to prepare the SQL statement.";
+        }
+    } else {
+        $_SESSION['error_message'] = "Invalid buyer username.";
+    }
+    // Redirect to refresh the page after processing
     header("Location: manage_buyers.php");
     exit();
 }
@@ -42,27 +54,20 @@ $conn->close();
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="logo">
-                <a href="admin_home.php">
-                    <img src="../images/logo-no-background.png" width="200px" height="auto" alt="Fresh Cart Logo">
-                </a>
-            </div>
-            <div class="menu">
-                <nav>
-                    <ul>
-                        <li><a href="admin_home.php">Dashboard</a></li>
-                        <li><a href="manage_products.php">Manage Products</a></li>
-                        <li><a href="manage_sellers.php">Manage Sellers</a></li>
-                        <li><a href="manage_buyers.php">Manage Buyers</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <button class="logout-btn">Logout</button>
-        </header>
+        <?php include 'admin_header.php'; ?>
 
         <main class="main">
             <h1>Manage Buyers</h1>
+
+            <?php if (isset($_SESSION['success_message'])): ?>
+                <div class="success-message"><?php echo htmlspecialchars($_SESSION['success_message']); ?></div>
+                <?php unset($_SESSION['success_message']); ?>
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION['error_message'])): ?>
+                <div class="error-message"><?php echo htmlspecialchars($_SESSION['error_message']); ?></div>
+                <?php unset($_SESSION['error_message']); ?>
+            <?php endif; ?>
 
             <table class="buyer-table">
                 <thead>
@@ -71,12 +76,12 @@ $conn->close();
                         <th>Name</th>
                         <th>Phone Number</th>
                         <th>Address</th>
-                        <th></th>
+                        <th>Status</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if ($buyers_result->num_rows > 0): ?>
+                    <?php if ($buyers_result && $buyers_result->num_rows > 0): ?>
                         <?php while ($buyer = $buyers_result->fetch_assoc()): ?>
                             <tr>
                                 <td><?php echo htmlspecialchars($buyer['buyer_username']); ?></td>
@@ -91,23 +96,26 @@ $conn->close();
                                              htmlspecialchars($buyer['buyer_pincode']);
                                     ?>
                                 </td>
+                                <td><?php echo htmlspecialchars($buyer['status']); ?></td>
                                 <td>
-                                    <form action="view_buyer.php" method="GET" style="display:inline;">
-                                        <input type="hidden" name="buyer_username" value="<?php echo $buyer['buyer_username']; ?>">
+                                    <form action="view_buyer.php" method="POST" style="display:inline;">
+                                        <input type="hidden" name="buyer_username" value="<?php echo htmlspecialchars($buyer['buyer_username']); ?>">
+                                        <input type="hidden" name="action" value="view">
                                         <button type="submit" class="view">View</button>
                                     </form>
                                 </td>
                                 <td>
                                     <form action="manage_buyers.php" method="POST" style="display:inline;">
-                                        <input type="hidden" name="buyer_username" value="<?php echo $buyer['buyer_username']; ?>">
-                                        <button type="submit" class="remove_btn" name="action" value="delete" onclick="return confirm('Are you sure you want to delete this buyer?');">Delete</button>
+                                        <input type="hidden" name="buyer_username" value="<?php echo htmlspecialchars ($buyer['buyer_username']); ?>">
+                                        <input type="hidden" name="action" value="delete">
+                                        <button type="submit" class="remove_btn">Remove</button>
                                     </form>
                                 </td>
                             </tr>
                         <?php endwhile; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="5">No buyers found.</td>
+                            <td colspan="6">No active buyers found.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

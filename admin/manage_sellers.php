@@ -9,25 +9,34 @@ if (!isset($_SESSION['admin_username'])) {
 
 include '../db_connection.php'; // Adjust the path as necessary
 
-// Fetch all sellers
-$seller_query = "SELECT seller_username, seller_name, seller_mbno, business_name, seller_area, seller_city, seller_state, seller_pincode FROM seller_table";
+// Fetch all active sellers
+$seller_query = "SELECT seller_username, seller_name, seller_mbno, business_name, seller_area, seller_city, seller_state, seller_pincode,status FROM seller_table WHERE status = 'active'";
 $sellers_result = $conn->query($seller_query);
 
-// Handle account removal (deletion)
+// Handle account removal (marking as removed)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete') {
     if (!empty($_POST['seller_username'])) {
         $seller_username = $_POST['seller_username'];
 
-        // Delete the seller account from the table
-        $delete_query = "DELETE FROM seller_table WHERE seller_username = ?";
-        $stmt = $conn->prepare($delete_query);
+        // Update the seller's status to 'removed'
+        $update_seller_query = "UPDATE seller_table SET status = 'removed' WHERE seller_username = ?";
+        $stmt = $conn->prepare($update_seller_query);
         if ($stmt) {
             $stmt->bind_param('s', $seller_username);
             if ($stmt->execute()) {
-                // Successful deletion
-                $_SESSION['success_message'] = "Seller account deleted successfully.";
+                // Successful update for seller
+                $_SESSION['success_message'] = "Seller account removed successfully.";
+
+                // Now update the products associated with this seller
+                $update_products_query = "UPDATE product_table SET status = 'removed' WHERE seller_id = ?";
+                $product_stmt = $conn->prepare($update_products_query);
+                if ($product_stmt) {
+                    $product_stmt->bind_param('s', $seller_username);
+                    $product_stmt->execute();
+                    $product_stmt->close();
+                }
             } else {
-                $_SESSION['error_message'] = "Failed to delete the seller account.";
+                $_SESSION['error_message'] = "Failed to remove the seller account.";
             }
             $stmt->close();
         } else {
@@ -54,26 +63,7 @@ $conn->close();
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="logo">
-                <a href="admin_home.php">
-                    <img src="../images/logo-no-background.png" width="200px" height="auto" alt="Fresh Cart Logo">
-                </a>
-            </div>
-            <div class="menu">
-                <nav>
-                    <ul>
-                        <li><a href="admin_home.php">Dashboard</a></li>
-                        <li><a href="manage_products.php">Manage Products</a></li>
-                        <li><a href="manage_sellers.php">Manage Sellers</a></li>
-                        <li><a href="manage_buyers.php">Manage Buyers</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <form action="admin_logout.php" method="POST" style="display:inline;">
-                <button type="submit" class="logout-btn">Logout</button>
-            </form>
-        </header>
+        <?php include 'admin_header.php'; ?>
 
         <main class="main">
             <h1>Manage Sellers</h1>
@@ -111,32 +101,33 @@ $conn->close();
                                     <?php
                                         echo htmlspecialchars($seller['seller_area']) . ", " .
                                              htmlspecialchars($seller['seller_city']) . ", " .
-                                             htmlspecialchars($seller['seller_state']) . " - " .
+                                             htmlspecialchars($seller['seller_state']) . " - " . // Fixed typo here
                                              htmlspecialchars($seller['seller_pincode']);
                                     ?>
                                 </td>
                                 <td>
-                                <form action="view_seller_products.php" method="POST" style="display:inline;">
-                                        <input type="hidden" name="seller_id" value="<?php echo htmlspecialchars($seller['seller_username']); ?>">
+                                    <form action="view_seller_products.php " method="POST" style="display:inline;">
+                                        <input type="hidden" name="seller_username" value="<?php echo htmlspecialchars($seller['seller_username']); ?>">
+                                        <input type="hidden" name="action" value="view">
                                         <button type="submit" class="view">View</button>
                                     </form>
                                 </td>
                                 <td>
                                     <form action="manage_sellers.php" method="POST" style="display:inline;">
                                         <input type="hidden" name="seller_username" value="<?php echo htmlspecialchars($seller['seller_username']); ?>">
-                                        <button type="submit" class="remove_btn" name="action" value="delete" onclick="return confirm('Are you sure you want to delete this seller?');">Delete</button>
+                                        <input type="hidden" name="action" value="delete">
+                                        <button type="submit" class="remove_btn">Remove</button>
                                     </form>
                                 </td>
                             </tr>
                         <?php endwhile; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="6">No sellers found.</td>
+                            <td colspan="7">No active sellers found.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
             </table>
-
             <?php include '../footer.php'; ?>
         </main>
     </div>

@@ -12,8 +12,8 @@ if (!isset($_SESSION['admin_username'])) {
 include 'C:\xampp\htdocs\Fresh_Cart\db_connection.php'; // Adjust the path as necessary
 
 // Check if the buyer_username is set in the GET request
-if (isset($_GET['buyer_username'])) {
-    $buyer_username = $_GET['buyer_username'];
+if (isset($_POST['buyer_username'])) {
+    $buyer_username = $_POST['buyer_username'];
 
     // Fetch buyer details from the database
     $query = "SELECT * FROM buyer_table WHERE buyer_username = ?";
