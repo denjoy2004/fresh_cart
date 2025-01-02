@@ -69,7 +69,8 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Seller Account - Fresh Cart</title>
-    <link rel="stylesheet" href="/fresh_cart/css/update_seller_account.css">
+    <link rel="stylesheet" href="../css/update_seller_account.css">
+    <script src="../js/update.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -86,7 +87,7 @@ $conn->close();
                 <div class="success-message"><?php echo htmlspecialchars($success); ?></div>
             <?php endif; ?>
 
-            <form action="" method="POST">
+            <form action="" method="POST" onsubmit="return update_seller()">
                 <label for="seller_name">Seller Name:</label>
                 <input type="text" id="seller_name" name="seller_name" value="<?php echo htmlspecialchars($sellerData['seller_name']); ?>" required>
 
