@@ -89,7 +89,7 @@ mysqli_close($conn);
     <div class="container">    
         <header>
             <div class="logo">
-                <a href="index.html"><img src="/fresh_cart/images/logo-no-background.png" width="200px" height="auto"></a>
+            <a href="../index.html"><img src="/fresh_cart/images/logo-no-background.png" width="200px" height="auto"></a>
             </div>
         </header>     
         <div class="page1-img">
